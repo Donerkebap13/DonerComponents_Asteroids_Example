@@ -1,0 +1,6 @@
+[submodule "thirdparty/SFML"]
+	path = thirdparty/SFML
+	url = git@github.com:SFML/SFML.git
+[submodule "thirdparty/DonerECS"]
+	path = thirdparty/DonerECS
+	url = git@github.com:Donerkebap13/DonerECS.git

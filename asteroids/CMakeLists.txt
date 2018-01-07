@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.8)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/DonerECS/cmake/utils.cmake)
 
@@ -24,4 +24,5 @@ set_target_properties("${project_name}" PROPERTIES LINKER_LANGUAGE CXX)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT "${project_name}")
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
+set_target_properties("${project_name}" PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/../")
 set_target_properties ("${project_name}" PROPERTIES FOLDER "${project_name}")

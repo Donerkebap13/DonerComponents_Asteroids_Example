@@ -27,49 +27,26 @@
 
 #pragma once
 
-struct SApplicationWindowParameters;
-class CRenderer;
+#include <donerecs/component/CComponent.h>
+
+#include <SFML/Graphics/Transform.hpp>
 
 namespace DonerECS
 {
-	class CComponentFactoryManager;
+	namespace Json
+	{
+		class Value;
+	}
 }
 
-namespace Input
-{
-	class CKeyboard;
-	class CMouse;
-}
-
-namespace sf
-{
-	class RenderWindow;
-}
-
-class CApplicationBase
+class CCompTransform : public DonerECS::CComponent
 {
 public:
-	CApplicationBase();
-	virtual ~CApplicationBase();
+	CCompTransform();
+	CCompTransform(CCompTransform& rhs);
 
-	bool Init(const SApplicationWindowParameters& applicationWindowParameters);
-	void Update();
-	void Destroy();
+	void ParseAtts(const DonerECS::Json::Value& atts) override;
 
-protected:
-	void RegisterComponents();
-
-	virtual bool InitProject() = 0;
-	virtual void UpdateProject(float dt) = 0;
-	virtual void DestroyProject() = 0;
-
-	virtual void RegisterComponentsProject() = 0;
-
-	sf::RenderWindow* m_mainWindow;
-
-	CRenderer* m_renderer;
-	Input::CKeyboard* m_keyboard;
-	Input::CMouse* m_mouse;
-
-	DonerECS::CComponentFactoryManager* m_componentFactoryManager;
+private:
+	sf::Transform m_transform;
 };

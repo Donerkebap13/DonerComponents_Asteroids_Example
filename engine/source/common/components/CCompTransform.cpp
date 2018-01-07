@@ -25,51 +25,44 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <engine/components/CCompTransform.h>
 
-struct SApplicationWindowParameters;
-class CRenderer;
+#include <donerecs/json/json.h>
 
-namespace DonerECS
+CCompTransform::CCompTransform()
 {
-	class CComponentFactoryManager;
 }
 
-namespace Input
+CCompTransform::CCompTransform(CCompTransform& rhs)
 {
-	class CKeyboard;
-	class CMouse;
+	m_transform = rhs.m_transform;
 }
 
-namespace sf
+void CCompTransform::ParseAtts(const DonerECS::Json::Value& atts)
 {
-	class RenderWindow;
+	sf::Vector2f pos;
+	const DonerECS::Json::Value& positionJson = atts["position"];
+	if (!positionJson.isNull() && positionJson.isArray())
+	{
+		pos.x = positionJson[0].asFloat();
+		pos.y = positionJson[1].asFloat();
+	}
+	m_transform.translate(pos);
+
+	float rotation = 0.0f;
+	const DonerECS::Json::Value& rotationJson = atts["rotation"];
+	if (!positionJson.isNull() && positionJson.isInt())
+	{
+		rotation  = rotationJson.asFloat();
+	}
+	m_transform.rotate(rotation);
+
+	sf::Vector2f scale;
+	const DonerECS::Json::Value& scaleJson = atts["scale"];
+	if (!scaleJson.isNull() && scaleJson.isArray())
+	{
+		scale.x = scaleJson[0].asFloat();
+		scale.y = scaleJson[1].asFloat();
+	}
+	m_transform.scale(scale);
 }
-
-class CApplicationBase
-{
-public:
-	CApplicationBase();
-	virtual ~CApplicationBase();
-
-	bool Init(const SApplicationWindowParameters& applicationWindowParameters);
-	void Update();
-	void Destroy();
-
-protected:
-	void RegisterComponents();
-
-	virtual bool InitProject() = 0;
-	virtual void UpdateProject(float dt) = 0;
-	virtual void DestroyProject() = 0;
-
-	virtual void RegisterComponentsProject() = 0;
-
-	sf::RenderWindow* m_mainWindow;
-
-	CRenderer* m_renderer;
-	Input::CKeyboard* m_keyboard;
-	Input::CMouse* m_mouse;
-
-	DonerECS::CComponentFactoryManager* m_componentFactoryManager;
-};

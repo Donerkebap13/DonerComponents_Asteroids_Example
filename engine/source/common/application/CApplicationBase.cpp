@@ -29,12 +29,15 @@
 #include <engine/application/SApplicationWindowParameters.h>
 #include <engine/input/CKeyboard.h>
 #include <engine/input/CMouse.h>
-//#include <graphics/CRenderer.h>
+#include <engine/graphics/CRenderer.h>
 
 #include <donerecs/DonerECSSystems.h>
 
+#include <engine/components/CCompTransform.h>
+
 #include <SFML/Config.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window/Event.hpp>
 
 CApplicationBase::CApplicationBase()
@@ -61,13 +64,11 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 								  , windowStyle
 								  );
 
-	/*m_renderer = new CRenderer(m_mainWindow);
-	if (!m_renderer->Init(applicationWindowParameters))
+	m_renderer = CRenderer::CreateInstance();
+	if (!m_renderer->Init(m_mainWindow, applicationWindowParameters))
 	{
-		DELETE_POINTER(m_renderer);
 		return false;
 	}
-	CSystems::SetSystem<IRenderer>(m_renderer);*/
 
 	m_mouse = Input::CMouse::CreateInstance();
 	if (!m_mouse->Init(m_mainWindow))
@@ -76,10 +77,11 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 	}
 
 	DonerECS::InitializeDonerECSSystems();
+	m_componentFactoryManager = DonerECS::CComponentFactoryManager::Get();
 
 	RegisterComponents();
 
-	return InitProject(/*m_gameSystems*/);
+	return InitProject();
 }
 
 void CApplicationBase::Update() 
@@ -114,14 +116,11 @@ void CApplicationBase::Update()
 		m_keyboard->Update(elapsed);
 		m_mouse->Update(elapsed);
 
-		/*m_componentFactoryManager->Update(elapsed);*/
+		m_componentFactoryManager->Update(elapsed);
 
 		UpdateProject(elapsed);
 
-		// this must be done by the renderer
-		m_mainWindow->clear();
-		// Draw
-		m_mainWindow->display();
+		m_renderer->Render();
 	}
 }
 
@@ -129,26 +128,17 @@ void CApplicationBase::Destroy()
 {
 	DestroyProject( );
 
-	/*m_renderer->Destroy();
-	CSystems::DestroySystem<IRenderer>();
-	*/
+	DonerECS::DestroyDonerECSSystems();
+	m_componentFactoryManager = nullptr;
 
+	CRenderer::DestroyInstance();
 	Input::CKeyboard::DestroyInstance();
 	Input::CMouse::DestroyInstance();
-
-	DonerECS::DestroyDonerECSSystems();
-
-	m_componentFactoryManager = nullptr;
 }
 
 void CApplicationBase::RegisterComponents()
 {
-	/*m_gameSystems.SetSystem<CEntityManager>(new CEntityManager());
-	m_gameSystems.SetSystem<CPrefabManager>(new CPrefabManager());
-	
-	m_componentFactoryManager = new CComponentFactoryManager();
-	m_gameSystems.SetSystem<CComponentFactoryManager>(m_componentFactoryManager);
-	m_gameSystems.SetSystem<CTagsManager>(new CTagsManager());*/
+	ADD_COMPONENT_FACTORY("translation", CCompTransform, 2048);
 	
 	RegisterComponentsProject();
 }

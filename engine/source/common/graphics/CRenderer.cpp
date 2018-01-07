@@ -25,51 +25,43 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <engine/application/SApplicationWindowParameters.h>
+#include <engine/graphics/CRenderer.h>
 
-struct SApplicationWindowParameters;
-class CRenderer;
+#include <SFML/Graphics/RenderWindow.hpp>
 
-namespace DonerECS
+CRenderer::CRenderer()
+	: m_mainWindow(nullptr)
 {
-	class CComponentFactoryManager;
 }
 
-namespace Input
+CRenderer::~CRenderer()
 {
-	class CKeyboard;
-	class CMouse;
 }
 
-namespace sf
+bool CRenderer::Init(sf::RenderWindow* mainWindow, const SApplicationWindowParameters& applicationWindowParameters)
 {
-	class RenderWindow;
+	m_mainWindow = mainWindow;
+
+	if (applicationWindowParameters.m_hasVerticalSync)
+	{
+		m_mainWindow->setVerticalSyncEnabled(true);
+	}
+	else
+	{
+		m_mainWindow->setFramerateLimit(applicationWindowParameters.m_frameRateLimit);
+	}
+	return true;
 }
 
-class CApplicationBase
+void CRenderer::Destroy()
 {
-public:
-	CApplicationBase();
-	virtual ~CApplicationBase();
 
-	bool Init(const SApplicationWindowParameters& applicationWindowParameters);
-	void Update();
-	void Destroy();
+}
 
-protected:
-	void RegisterComponents();
-
-	virtual bool InitProject() = 0;
-	virtual void UpdateProject(float dt) = 0;
-	virtual void DestroyProject() = 0;
-
-	virtual void RegisterComponentsProject() = 0;
-
-	sf::RenderWindow* m_mainWindow;
-
-	CRenderer* m_renderer;
-	Input::CKeyboard* m_keyboard;
-	Input::CMouse* m_mouse;
-
-	DonerECS::CComponentFactoryManager* m_componentFactoryManager;
-};
+void CRenderer::Render()
+{
+	m_mainWindow->clear(sf::Color::Black);
+	// m_mainWindow->draw(...);
+	m_mainWindow->display();
+}

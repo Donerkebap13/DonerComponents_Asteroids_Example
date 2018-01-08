@@ -34,6 +34,7 @@
 #include <donerecs/DonerECSSystems.h>
 
 #include <engine/components/CCompTransform.h>
+#include <engine/components/CCompSprite.h>
 
 #include <SFML/Config.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -138,7 +139,8 @@ void CApplicationBase::Destroy()
 
 void CApplicationBase::RegisterComponents()
 {
-	ADD_COMPONENT_FACTORY("translation", CCompTransform, 2048);
+	ADD_COMPONENT_FACTORY("transform", CCompTransform, 2048);
+	ADD_COMPONENT_FACTORY("sprite", CCompSprite, 2048);
 	
 	RegisterComponentsProject();
 }

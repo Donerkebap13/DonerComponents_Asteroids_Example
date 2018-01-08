@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include <engine/graphics/CSpriteFactory.h>
+
 #include <donerecs/common/CSingleton.h>
 
 struct SApplicationWindowParameters;
@@ -46,6 +48,10 @@ public:
 	void Destroy();
 	void Render();
 
+	CSpriteFactory& GetSpriteFactory() { return m_spriteFactory; }
+
 private:
 	sf::RenderWindow* m_mainWindow;
+
+	CSpriteFactory m_spriteFactory;
 };

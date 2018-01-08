@@ -27,10 +27,20 @@
 
 #include <application/CApplication.h>
 
+#include <donerecs/entity/CEntityParser.h>
+
 CApplication::CApplication()
 {
 }
 
 CApplication::~CApplication()
 {
+}
+
+bool CApplication::InitProject() 
+{
+	DonerECS::CEntityParser parser;
+	parser.ParseSceneFromFile("res/common/scenes/test.json");
+
+	return true; 
 }

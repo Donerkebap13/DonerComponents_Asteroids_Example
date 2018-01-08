@@ -35,7 +35,7 @@ public:
 	CApplication();
 	~CApplication() override;
 
-	bool InitProject() override { return true; }
+	bool InitProject() override;
 	void UpdateProject(float dt) override {}
 	void DestroyProject() override {}
 

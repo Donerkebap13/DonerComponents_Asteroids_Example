@@ -27,11 +27,15 @@
 
 #include <engine/application/SApplicationWindowParameters.h>
 #include <engine/graphics/CRenderer.h>
+#include <engine/components/CCompSprite.h>
+
+#include <donerecs/component/CComponentFactoryManager.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
 CRenderer::CRenderer()
 	: m_mainWindow(nullptr)
+	, m_spriteFactory(1024)
 {
 }
 
@@ -62,6 +66,8 @@ void CRenderer::Destroy()
 void CRenderer::Render()
 {
 	m_mainWindow->clear(sf::Color::Black);
-	// m_mainWindow->draw(...);
+	
+	m_spriteFactory.Render(*m_mainWindow);
+
 	m_mainWindow->display();
 }

@@ -47,6 +47,12 @@ public:
 
 	void ParseAtts(const DonerECS::Json::Value& atts) override;
 
+	bool IsDirty() const { return m_dirty; }
+
 private:
+	void DoUpdate(float dt) override;
+
 	sf::Transform m_transform;
+
+	bool m_dirty;
 };

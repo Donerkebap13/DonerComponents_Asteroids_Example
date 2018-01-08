@@ -26,16 +26,20 @@
 ////////////////////////////////////////////////////////////
 
 #include <engine/components/CCompTransform.h>
+#include <engine/messages/CommonMessages.h>
 
 #include <donerecs/json/json.h>
+#include <donerecs/entity/CEntity.h>
 
 CCompTransform::CCompTransform()
+	: m_dirty(false)
 {
 }
 
 CCompTransform::CCompTransform(CCompTransform& rhs)
 {
 	m_transform = rhs.m_transform;
+	m_dirty = true;
 }
 
 void CCompTransform::ParseAtts(const DonerECS::Json::Value& atts)
@@ -51,7 +55,7 @@ void CCompTransform::ParseAtts(const DonerECS::Json::Value& atts)
 
 	float rotation = 0.0f;
 	const DonerECS::Json::Value& rotationJson = atts["rotation"];
-	if (!positionJson.isNull() && positionJson.isInt())
+	if (!positionJson.isNull() && rotationJson.isInt())
 	{
 		rotation  = rotationJson.asFloat();
 	}
@@ -65,4 +69,16 @@ void CCompTransform::ParseAtts(const DonerECS::Json::Value& atts)
 		scale.y = scaleJson[1].asFloat();
 	}
 	m_transform.scale(scale);
+
+	m_dirty = true;
+}
+
+void CCompTransform::DoUpdate(float dt)
+{
+	if (m_dirty)
+	{
+		CommonMessages::STransformUpdated message(m_transform);
+		m_owner.SendMessage(message);
+		m_dirty = false;
+	}
 }

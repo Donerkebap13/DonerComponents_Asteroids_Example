@@ -1,0 +1,19 @@
+{
+	"type": "scene",
+	"root": {
+		"name": "test",
+		"components": [
+			{
+				"name": "transform",
+				"position": [100.0, 100.0],
+				"rotation": 45,
+				"scale": [1.0, 2.0]
+			},
+			{
+				"name": "sprite",
+				"texture": "res/common/textures/ship.png",
+				"tint": [255, 0, 0, 255]
+			}
+		]
+	}	
+}

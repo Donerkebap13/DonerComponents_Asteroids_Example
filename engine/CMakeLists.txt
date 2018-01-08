@@ -17,10 +17,11 @@ file(GLOB_RECURSE source_files "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 add_source_groups("${header_files}")
 add_source_groups("${source_files}")
 
-include_directories ("include")
-include_directories ("${third_party_path}/DonerECS/DonerECS/include")
-include_directories ("${third_party_path}/SFML/include")
 add_library("${project_name}" STATIC ${header_files} ${source_files})
+
+target_include_directories("${project_name}" PUBLIC "include")
+target_include_directories("${project_name}" PUBLIC "${third_party_path}/DonerECS/DonerECS/include")
+target_include_directories("${project_name}" PUBLIC "${third_party_path}/SFML/include")
 
 target_link_libraries("${project_name}" 
 	"DonerECS" 	

@@ -14,11 +14,12 @@ file(GLOB_RECURSE source_files "${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp")
 add_source_groups("${header_files}")
 add_source_groups("${source_files}")
 
-include_directories ("include")
-include_directories ("${CMAKE_CURRENT_SOURCE_DIR}/../engine/include")
 add_executable("${project_name}" ${header_files} ${source_files})
 
-target_link_libraries("${project_name}" "Engine")
+target_include_directories ("${project_name}" PUBLIC "include")
+target_include_directories ("${project_name}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../engine/include")
+
+target_link_libraries("${project_name}" "Engine" "DonerECS")
 
 set_target_properties("${project_name}" PROPERTIES LINKER_LANGUAGE CXX)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT "${project_name}")

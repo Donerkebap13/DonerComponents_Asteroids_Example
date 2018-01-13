@@ -38,6 +38,8 @@ namespace CCompSpriteInternal
 	const char* const MISSING_TEXTURE_PATH = "res/common/textures/missing.png";
 }
 
+DECS_COMPONENT_REFLECTION_IMPL(CCompSprite)
+
 CCompSprite::CCompSprite()
 	: m_texturePath(CCompSpriteInternal::MISSING_TEXTURE_PATH)
 	, m_tintColor(sf::Color::White)
@@ -69,42 +71,6 @@ void CCompSprite::RegisterMessages()
 	RegisterMessage(&CCompSprite::OnUpdateTransform);
 }
 
-void CCompSprite::ParseAtts(const DonerECS::Json::Value& atts)
-{
-	const DonerECS::Json::Value& texturePathJson = atts["texture"];
-	if (!texturePathJson.isNull() && texturePathJson.isString())
-	{
-		m_texturePath = texturePathJson.asString();
-	}
-
-	if (!m_texture.loadFromFile(m_texturePath))
-	{
-		m_texture.loadFromFile(CCompSpriteInternal::MISSING_TEXTURE_PATH);
-	}
-
-	const DonerECS::Json::Value& smoothJson = atts["smooth"];
-	if (!smoothJson.isNull() && smoothJson.isBool())
-	{
-		m_smooth = smoothJson.asBool();
-	}
-	m_texture.setSmooth(m_smooth);
-
-	const DonerECS::Json::Value& tintJson = atts["tint"];
-	if (!tintJson.isNull() && tintJson.isArray())
-	{
-		m_tintColor = sf::Color(tintJson[0].asInt(), tintJson[1].asInt(), tintJson[2].asInt(), tintJson[3].asInt());
-	}
-
-	sf::Vector2u size = m_texture.getSize();
-	sf::Vector2f origin(0.f, 0.f);
-	const DonerECS::Json::Value& originJson = atts["origin"];
-	if (!originJson.isNull() && originJson.isArray())
-	{
-		origin = sf::Vector2f(originJson[0].asFloat(), originJson[1].asFloat());
-	}
-	m_origin = sf::Vector2f(size.x * origin.x, size.y * origin.y);
-}
-
 void CCompSprite::OnUpdateTransform(const CommonMessages::STransformUpdated& message)
 {
 	m_spriteInfo->m_transform = message.m_transform;
@@ -115,10 +81,18 @@ void CCompSprite::DoInit()
 	m_spriteInfo = CRenderer::Get()->GetSpriteFactory().CreateSprite();
 	if (m_spriteInfo)
 	{
+		if (!m_texture.loadFromFile(m_texturePath))
+		{
+			m_texture.loadFromFile(CCompSpriteInternal::MISSING_TEXTURE_PATH);
+		}
+		m_texture.setSmooth(m_smooth);
+
+		sf::Vector2u size = m_texture.getSize();
+		m_origin = sf::Vector2f(size.x * m_origin.x, size.y * m_origin.y);
+
 		m_spriteInfo->m_sprite.setTexture(m_texture);
 		m_spriteInfo->m_sprite.setColor(m_tintColor);
 		m_spriteInfo->m_sprite.setOrigin(m_origin);
-
 	}
 }
 

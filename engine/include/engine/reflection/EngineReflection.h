@@ -25,44 +25,20 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <engine/components/CCompTransform.h>
-#include <engine/messages/CommonMessages.h>
+#pragma once
 
-#include <donerecs/json/json.h>
-#include <donerecs/entity/CEntity.h>
+#include <donerecs/reflection/Reflection.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompTransform)
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
 
-CCompTransform::CCompTransform()
-	: m_position(0.f, 0.f)
-	, m_rotation(0)
-	, m_scale(0.f, 0.f)
-	, m_dirty(false)
+namespace DonerECS
 {
-}
-
-CCompTransform::CCompTransform(CCompTransform& rhs)
-{
-	m_position = rhs.m_position;
-	m_rotation = rhs.m_rotation;
-	m_scale = rhs.m_scale;
-	DoInit();
-}
-
-void CCompTransform::DoInit()
-{
-	m_transform.translate(m_position);
-	m_transform.rotate(m_rotation);
-	m_transform.scale(m_scale);
-	m_dirty = true;
-}
-
-void CCompTransform::DoUpdate(float dt)
-{
-	if (m_dirty)
+	namespace Reflection
 	{
-		CommonMessages::STransformUpdated message(m_transform);
-		m_owner.SendMessage(message);
-		m_dirty = false;
+		template<>
+		Optional<sf::Color> ReflectData<sf::Color>(const DonerECS::Json::Value& att);
+		template<>
+		Optional<sf::Vector2f> ReflectData<sf::Vector2f>(const DonerECS::Json::Value& att);
 	}
 }

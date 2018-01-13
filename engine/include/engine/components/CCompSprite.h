@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include <engine/reflection/EngineReflection.h>
+
 #include <donerecs/component/CComponent.h>
 
 #include <SFML/Graphics/Texture.hpp>
@@ -56,27 +58,29 @@ namespace sf
 
 class CCompSprite : public DonerECS::CComponent
 {
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompSprite)
 public:
 	CCompSprite();
 	CCompSprite(CCompSprite& rhs);
 
 	void RegisterMessages() override;
 
-	void ParseAtts(const DonerECS::Json::Value& atts) override;
-
 	void OnUpdateTransform(const CommonMessages::STransformUpdated& message);
 
 private:
 	void DoInit() override;
 	void DoDestroy() override;
-
 	std::string m_texturePath;
-
-	sf::Texture m_texture;
 	sf::Color m_tintColor;
 	sf::Vector2f m_origin;
-
+	sf::Texture m_texture;
 	CSpriteInfo* m_spriteInfo;
-
 	bool m_smooth;
 };
+
+DECS_REFLECT_CLASS_DATA(CCompSprite,
+	DECS_REFLECT_VAR(CCompSprite, std::string, m_texturePath, "texture"),
+	DECS_REFLECT_VAR(CCompSprite, sf::Color, m_tintColor, "tint"),
+	DECS_REFLECT_VAR(CCompSprite, sf::Vector2f, m_origin, "origin"),
+	DECS_REFLECT_VAR(CCompSprite, bool, m_smooth, "smooth")
+);

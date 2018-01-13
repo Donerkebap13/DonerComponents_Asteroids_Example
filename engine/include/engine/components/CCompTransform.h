@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include <engine/reflection/EngineReflection.h>
+
 #include <donerecs/component/CComponent.h>
 
 #include <SFML/Graphics/Transform.hpp>
@@ -41,18 +43,28 @@ namespace DonerECS
 
 class CCompTransform : public DonerECS::CComponent
 {
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompTransform)
 public:
 	CCompTransform();
 	CCompTransform(CCompTransform& rhs);
 
-	void ParseAtts(const DonerECS::Json::Value& atts) override;
-
 	bool IsDirty() const { return m_dirty; }
 
 private:
+	void DoInit() override;
 	void DoUpdate(float dt) override;
+
+	sf::Vector2f m_position;
+	float m_rotation;
+	sf::Vector2f m_scale;
 
 	sf::Transform m_transform;
 
 	bool m_dirty;
 };
+
+DECS_REFLECT_CLASS_DATA(CCompTransform,
+	DECS_REFLECT_VAR(CCompTransform, sf::Vector2f, m_position, "position"),
+	DECS_REFLECT_VAR(CCompTransform, float, m_rotation, "rotation"),
+	DECS_REFLECT_VAR(CCompTransform, sf::Vector2f, m_scale, "scale")
+);

@@ -33,6 +33,7 @@ target_link_libraries("${project_name}"
 	)
 	
 add_definitions(-DSFML_STATIC)
+target_compile_definitions("sfml-audio" PRIVATE _HAS_AUTO_PTR_ETC=1)
 
 set_target_properties("${project_name}" PROPERTIES LINKER_LANGUAGE CXX)
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)

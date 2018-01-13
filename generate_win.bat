@@ -1,6 +1,6 @@
 @echo off
 
-set project_folder=".\projects"
+set project_folder=".\project"
 set root=%cd%
 set extra_cmake_parameters=%1
 

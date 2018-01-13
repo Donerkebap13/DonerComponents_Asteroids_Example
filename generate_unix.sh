@@ -1,6 +1,9 @@
 #!/bin/bash
 
-set PROJECT_FOLDER=".\project"
+ROOT=`pwd`
+echo ${ROOT}
+set PROJECT_FOLDER="${ROOT}\project"
+echo ${PROJECT_FOLDER}
 EXTRA_CMAKE_PARAMETERS=$1
 
 if [ ! -d ${PROJECT_FOLDER} ]; then

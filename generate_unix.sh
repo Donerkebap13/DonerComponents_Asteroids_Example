@@ -1,9 +1,7 @@
 #!/bin/bash
 
 ROOT=`pwd`
-echo ${ROOT}
-set PROJECT_PATH="${ROOT}/project"
-echo ${PROJECT_PATH}
+PROJECT_PATH=${ROOT}/project
 EXTRA_CMAKE_PARAMETERS=$1
 
 if [ ! -d ${PROJECT_PATH} ]; then

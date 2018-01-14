@@ -21,6 +21,7 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libjpeg8-dev; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libsndfile1-dev; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libopenal-dev; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install libudev-dev; fi
 
 script: ./scripts/travis.sh
 

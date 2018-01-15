@@ -41,6 +41,15 @@ namespace DonerECS
 	}
 }
 
+namespace CommonMessages
+{
+	struct SGetTransform;
+	struct SSetPosition;
+	struct SSetRotation;
+	struct SSetScale;
+	struct SParentTransformUpdated;
+}
+
 class CCompTransform : public DonerECS::CComponent
 {
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompTransform)
@@ -48,17 +57,27 @@ public:
 	CCompTransform();
 	CCompTransform(CCompTransform& rhs);
 
+	void RegisterMessages() override;
+
 	bool IsDirty() const { return m_dirty; }
+
+	void OnSetPosition(CommonMessages::SSetPosition& message);
+	void OnSetRotation(CommonMessages::SSetRotation& message);
+	void OnSetScale(CommonMessages::SSetScale& message);
+	void OnGetTransform(CommonMessages::SGetTransform& message);
+	void OnParentTransformUpdated(CommonMessages::SParentTransformUpdated& message);
 
 private:
 	void DoInit() override;
 	void DoUpdate(float dt) override;
 
+	void UpdateWorldTransform();
+
 	sf::Vector2f m_position;
 	float m_rotation;
 	sf::Vector2f m_scale;
 
-	sf::Transform m_transform;
+	sf::Transform m_worldTransform;
 
 	bool m_dirty;
 };

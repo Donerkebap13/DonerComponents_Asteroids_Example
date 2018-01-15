@@ -47,7 +47,7 @@ namespace DonerECS
 
 namespace CommonMessages
 {
-	struct STransformUpdated;
+	struct SUpdateTransformForRender;
 }
 
 namespace sf
@@ -65,7 +65,7 @@ public:
 
 	void RegisterMessages() override;
 
-	void OnUpdateTransform(const CommonMessages::STransformUpdated& message);
+	void OnUpdateTransform(const CommonMessages::SUpdateTransformForRender& message);
 
 private:
 	void DoInit() override;

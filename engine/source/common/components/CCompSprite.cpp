@@ -71,7 +71,7 @@ void CCompSprite::RegisterMessages()
 	RegisterMessage(&CCompSprite::OnUpdateTransform);
 }
 
-void CCompSprite::OnUpdateTransform(const CommonMessages::STransformUpdated& message)
+void CCompSprite::OnUpdateTransform(const CommonMessages::SUpdateTransformForRender& message)
 {
 	m_spriteInfo->m_transform = message.m_transform;
 }

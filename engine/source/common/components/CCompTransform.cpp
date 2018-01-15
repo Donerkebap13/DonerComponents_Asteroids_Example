@@ -31,6 +31,9 @@
 #include <donerecs/json/json.h>
 #include <donerecs/entity/CEntity.h>
 
+#include <SFML/Graphics/Transformable.hpp>
+
+
 DECS_COMPONENT_REFLECTION_IMPL(CCompTransform)
 
 CCompTransform::CCompTransform()
@@ -46,23 +49,81 @@ CCompTransform::CCompTransform(CCompTransform& rhs)
 	m_position = rhs.m_position;
 	m_rotation = rhs.m_rotation;
 	m_scale = rhs.m_scale;
-	DoInit();
+}
+
+void CCompTransform::RegisterMessages()
+{
+	RegisterMessage(&CCompTransform::OnSetPosition);
+	RegisterMessage(&CCompTransform::OnSetRotation);
+	RegisterMessage(&CCompTransform::OnSetScale);
+	RegisterMessage(&CCompTransform::OnGetTransform);
+	RegisterMessage(&CCompTransform::OnParentTransformUpdated);
 }
 
 void CCompTransform::DoInit()
 {
-	m_transform.translate(m_position);
-	m_transform.rotate(m_rotation);
-	m_transform.scale(m_scale);
-	m_dirty = true;
+	UpdateWorldTransform();
 }
 
 void CCompTransform::DoUpdate(float dt)
 {
 	if (m_dirty)
 	{
-		CommonMessages::STransformUpdated message(m_transform);
+		CommonMessages::SUpdateTransformForRender message(m_worldTransform);
 		m_owner.SendMessage(message);
 		m_dirty = false;
 	}
+}
+
+void CCompTransform::OnSetPosition(CommonMessages::SSetPosition& message)
+{
+	m_position = message.m_position;
+	UpdateWorldTransform();
+}
+
+void CCompTransform::OnSetRotation(CommonMessages::SSetRotation& message)
+{
+	m_rotation = message.m_angle;
+	UpdateWorldTransform();
+}
+
+void CCompTransform::OnSetScale(CommonMessages::SSetScale& message)
+{
+	m_scale = message.m_scale;
+	UpdateWorldTransform();
+}
+
+void CCompTransform::OnGetTransform(CommonMessages::SGetTransform& message)
+{
+	*message.m_transform = &m_worldTransform;
+}
+
+void CCompTransform::OnParentTransformUpdated(CommonMessages::SParentTransformUpdated& message)
+{
+	UpdateWorldTransform();
+}
+
+void CCompTransform::UpdateWorldTransform()
+{
+	sf::Transformable localTransform;
+	localTransform.setPosition(m_position);
+	localTransform.setRotation(m_rotation);
+	localTransform.setScale(m_scale);
+
+	sf::Transform* parent_transform = nullptr;
+	CommonMessages::SGetTransform getTransformMessage(&parent_transform);
+	DonerECS::CHandle parent = static_cast<DonerECS::CEntity*>(m_owner)->GetParent();
+	parent.SendMessage(getTransformMessage);
+	if (parent_transform)
+	{
+		m_worldTransform = *parent_transform * localTransform.getTransform();
+	}
+	else
+	{
+		m_worldTransform = localTransform.getTransform();
+	}
+	
+	CommonMessages::SParentTransformUpdated parentTransformUpdatedMessage(m_worldTransform);
+	m_owner.SendMessageToChildren(parentTransformUpdatedMessage);
+	m_dirty = true;
 }

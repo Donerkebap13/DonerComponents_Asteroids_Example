@@ -31,11 +31,51 @@
 
 namespace CommonMessages
 {
-	struct STransformUpdated
+	struct SUpdateTransformForRender
 	{
-		STransformUpdated(const sf::Transform& transform)
+		SUpdateTransformForRender(const sf::Transform& transform)
 			: m_transform(transform)
 		{}
 		const sf::Transform& m_transform;
+	};
+
+	struct SParentTransformUpdated
+	{
+		SParentTransformUpdated(const sf::Transform& transform)
+			: m_transform(transform)
+		{}
+		const sf::Transform& m_transform;
+	};
+
+	struct SGetTransform
+	{
+		SGetTransform(sf::Transform** transform)
+			: m_transform(transform)
+		{}
+		sf::Transform** m_transform;
+	};
+
+	struct SSetPosition
+	{
+		SSetPosition(const sf::Vector2f& position)
+			: m_position(position)
+		{}
+		sf::Vector2f m_position;
+	};
+
+	struct SSetRotation
+	{
+		SSetRotation(float angle)
+			: m_angle(angle)
+		{}
+		float m_angle;
+	};
+
+	struct SSetScale
+	{
+		SSetScale(const sf::Vector2f& scale)
+			: m_scale(scale)
+		{}
+		sf::Vector2f m_scale;
 	};
 }

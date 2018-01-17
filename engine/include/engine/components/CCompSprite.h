@@ -79,8 +79,8 @@ private:
 };
 
 DECS_REFLECT_CLASS_DATA(CCompSprite,
-	DECS_REFLECT_VAR(CCompSprite, std::string, m_texturePath, "texture"),
-	DECS_REFLECT_VAR(CCompSprite, sf::Color, m_tintColor, "tint"),
-	DECS_REFLECT_VAR(CCompSprite, sf::Vector2f, m_origin, "origin"),
-	DECS_REFLECT_VAR(CCompSprite, bool, m_smooth, "smooth")
+	DECS_REFLECT_VAR(m_texturePath, "texture"),
+	DECS_REFLECT_VAR(m_tintColor, "tint"),
+	DECS_REFLECT_VAR(m_origin, "origin"),
+	DECS_REFLECT_VAR(m_smooth, "smooth")
 );

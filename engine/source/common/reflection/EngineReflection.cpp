@@ -31,8 +31,7 @@ namespace DonerECS
 {
 	namespace Reflection
 	{
-		template<>
-		Optional<sf::Color> ReflectData<sf::Color>(const DonerECS::Json::Value& att)
+		Optional<sf::Color> SDataReflector<sf::Color>::ReflectData(const DonerECS::Json::Value& att)
 		{
 			if (!att.isNull() && att.isArray())
 			{
@@ -41,8 +40,7 @@ namespace DonerECS
 			return Optional<sf::Color>();
 		}
 
-		template<>
-		Optional<sf::Vector2f> ReflectData<sf::Vector2f>(const DonerECS::Json::Value& att)
+		Optional<sf::Vector2f> SDataReflector<sf::Vector2f>::ReflectData(const DonerECS::Json::Value& att)
 		{
 			if (!att.isNull() && att.isArray())
 			{

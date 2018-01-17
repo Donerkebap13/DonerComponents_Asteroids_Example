@@ -83,7 +83,7 @@ private:
 };
 
 DECS_REFLECT_CLASS_DATA(CCompTransform,
-	DECS_REFLECT_VAR(CCompTransform, sf::Vector2f, m_position, "position"),
-	DECS_REFLECT_VAR(CCompTransform, float, m_rotation, "rotation"),
-	DECS_REFLECT_VAR(CCompTransform, sf::Vector2f, m_scale, "scale")
+	DECS_REFLECT_VAR(m_position, "position"),
+	DECS_REFLECT_VAR(m_rotation, "rotation"),
+	DECS_REFLECT_VAR(m_scale, "scale")
 );

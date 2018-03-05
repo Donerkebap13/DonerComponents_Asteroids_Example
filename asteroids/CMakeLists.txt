@@ -21,8 +21,6 @@ target_include_directories ("${project_name}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR
 
 target_link_libraries("${project_name}" "Engine" "DonerECS")
 
-enable_cxx_14()
-
 set_target_properties("${project_name}" PROPERTIES LINKER_LANGUAGE CXX)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT "${project_name}")
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)

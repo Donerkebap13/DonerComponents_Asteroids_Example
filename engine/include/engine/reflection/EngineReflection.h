@@ -37,15 +37,15 @@ namespace DonerECS
 	namespace Reflection
 	{
 		template<>
-		struct SDataReflector<sf::Color>
+		struct STypeReflector<sf::Color>
 		{
-			static Optional<sf::Color> ReflectData(const DonerECS::Json::Value& att);
+			static std::experimental::optional<sf::Color> DeserializeFromJson(const DonerECS::Json::Value& att);
 		};
 
 		template<>
-		struct SDataReflector<sf::Vector2f>
+		struct STypeReflector<sf::Vector2f>
 		{
-			static Optional<sf::Vector2f> ReflectData(const DonerECS::Json::Value& att);
+			static std::experimental::optional<sf::Vector2f> DeserializeFromJson(const DonerECS::Json::Value& att);
 		};
 	}
 }

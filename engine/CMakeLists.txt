@@ -31,8 +31,6 @@ target_link_libraries("${project_name}"
 	"sfml-graphics"
 	"sfml-audio"
 	)
-
-enable_cxx_14()
 	
 add_definitions(-DSFML_STATIC)
 target_compile_definitions("sfml-audio" PRIVATE _HAS_AUTO_PTR_ETC=1)

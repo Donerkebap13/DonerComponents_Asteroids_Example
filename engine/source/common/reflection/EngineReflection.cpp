@@ -31,22 +31,22 @@ namespace DonerECS
 {
 	namespace Reflection
 	{
-		Optional<sf::Color> SDataReflector<sf::Color>::ReflectData(const DonerECS::Json::Value& att)
+		std::experimental::optional<sf::Color> STypeReflector<sf::Color>::DeserializeFromJson(const DonerECS::Json::Value& att)
 		{
-			if (!att.isNull() && att.isArray())
+			if (att.isArray())
 			{
-				return Optional<sf::Color>(sf::Color(att[0].asInt(), att[1].asInt(), att[2].asInt(), att[3].asInt()));
+				return std::experimental::make_optional<sf::Color>(sf::Color(att[0].asInt(), att[1].asInt(), att[2].asInt(), att[3].asInt()));
 			}
-			return Optional<sf::Color>();
+			return std::experimental::nullopt;
 		}
 
-		Optional<sf::Vector2f> SDataReflector<sf::Vector2f>::ReflectData(const DonerECS::Json::Value& att)
+		std::experimental::optional<sf::Vector2f> STypeReflector<sf::Vector2f>::DeserializeFromJson(const DonerECS::Json::Value& att)
 		{
-			if (!att.isNull() && att.isArray())
+			if (att.isArray())
 			{
-				return Optional<sf::Vector2f>(sf::Vector2f(att[0].asFloat(), att[1].asFloat()));
+				return std::experimental::make_optional<sf::Vector2f>(sf::Vector2f(att[0].asFloat(), att[1].asFloat()));
 			}
-			return Optional<sf::Vector2f>();
+			return std::experimental::nullopt;
 		}
 	}
 }

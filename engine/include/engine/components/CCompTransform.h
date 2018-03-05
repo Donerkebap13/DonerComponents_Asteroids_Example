@@ -82,8 +82,8 @@ private:
 	bool m_dirty;
 };
 
-DECS_REFLECT_CLASS_DATA(CCompTransform,
-	DECS_REFLECT_VAR(m_position, "position"),
-	DECS_REFLECT_VAR(m_rotation, "rotation"),
-	DECS_REFLECT_VAR(m_scale, "scale")
+DECS_DEFINE_REFLECTION_DATA(CCompTransform,
+	DECS_ADD_VAR_INFO(m_position, "position"),
+	DECS_ADD_VAR_INFO(m_rotation, "rotation"),
+	DECS_ADD_VAR_INFO(m_scale, "scale")
 );

@@ -78,9 +78,9 @@ private:
 	bool m_smooth;
 };
 
-DECS_REFLECT_CLASS_DATA(CCompSprite,
-	DECS_REFLECT_VAR(m_texturePath, "texture"),
-	DECS_REFLECT_VAR(m_tintColor, "tint"),
-	DECS_REFLECT_VAR(m_origin, "origin"),
-	DECS_REFLECT_VAR(m_smooth, "smooth")
-);
+DECS_DEFINE_REFLECTION_DATA(CCompSprite,
+	DECS_ADD_VAR_INFO(m_texturePath, "texture"),
+	DECS_ADD_VAR_INFO(m_tintColor, "tint"),
+	DECS_ADD_VAR_INFO(m_origin, "origin"),
+	DECS_ADD_VAR_INFO(m_smooth, "smooth")
+)

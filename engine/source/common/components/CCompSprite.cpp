@@ -58,6 +58,16 @@ CCompSprite::CCompSprite(CCompSprite& rhs)
 {
 }
 
+CCompSprite& CCompSprite::operator=(CCompSprite& rhs)
+{
+	m_texturePath = rhs.m_texturePath;
+	m_tintColor = rhs.m_tintColor;
+	m_origin = rhs.m_origin;
+	m_spriteInfo = nullptr;
+	m_spriteInfo = rhs.m_spriteInfo;
+	return *this;
+}
+
 void CCompSprite::RegisterMessages()
 {
 	RegisterMessage(&CCompSprite::OnUpdateTransform);

@@ -63,6 +63,7 @@ public:
 	CCompSprite();
 	CCompSprite(CCompSprite& rhs);
 	CCompSprite(CCompSprite&& rhs) = default;
+	CCompSprite& operator=(CCompSprite& rhs);
 
 	void RegisterMessages() override;
 

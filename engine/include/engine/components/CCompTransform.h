@@ -57,6 +57,7 @@ public:
 	CCompTransform();
 	CCompTransform(CCompTransform& rhs) = default;
 	CCompTransform(CCompTransform&& rhs) = default;
+	CCompTransform& operator=(CCompTransform& rhs) = default;
 
 	void RegisterMessages() override;
 

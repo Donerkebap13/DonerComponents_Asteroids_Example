@@ -44,13 +44,6 @@ CCompTransform::CCompTransform()
 {
 }
 
-CCompTransform::CCompTransform(CCompTransform& rhs)
-{
-	m_position = rhs.m_position;
-	m_rotation = rhs.m_rotation;
-	m_scale = rhs.m_scale;
-}
-
 void CCompTransform::RegisterMessages()
 {
 	RegisterMessage(&CCompTransform::OnSetPosition);

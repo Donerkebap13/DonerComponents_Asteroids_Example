@@ -55,7 +55,8 @@ class CCompTransform : public DonerECS::CComponent
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompTransform)
 public:
 	CCompTransform();
-	CCompTransform(CCompTransform& rhs);
+	CCompTransform(CCompTransform& rhs) = default;
+	CCompTransform(CCompTransform&& rhs) = default;
 
 	void RegisterMessages() override;
 

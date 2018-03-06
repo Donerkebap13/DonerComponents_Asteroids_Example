@@ -62,6 +62,7 @@ class CCompSprite : public DonerECS::CComponent
 public:
 	CCompSprite();
 	CCompSprite(CCompSprite& rhs);
+	CCompSprite(CCompSprite&& rhs) = default;
 
 	void RegisterMessages() override;
 

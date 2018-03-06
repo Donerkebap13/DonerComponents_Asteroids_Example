@@ -50,20 +50,12 @@ CCompSprite::CCompSprite()
 }
 
 CCompSprite::CCompSprite(CCompSprite& rhs)
+	: m_texturePath(rhs.m_texturePath)
+	, m_tintColor(rhs.m_tintColor)
+	, m_origin(rhs.m_origin)
+	, m_spriteInfo(nullptr)
+	, m_smooth(rhs.m_smooth)
 {
-	m_texturePath = rhs.m_texturePath;
-	m_texture = rhs.m_texture;
-	m_tintColor = rhs.m_tintColor;
-	m_origin = rhs.m_origin;
-	m_smooth = rhs.m_smooth;
-
-	m_spriteInfo = CRenderer::Get()->GetSpriteFactory().CreateSprite();
-	if (m_spriteInfo)
-	{
-		m_spriteInfo->m_sprite.setTexture(m_texture);
-		m_spriteInfo->m_sprite.setColor(m_tintColor);
-		m_spriteInfo->m_sprite.setOrigin(m_origin);
-	}
 }
 
 void CCompSprite::RegisterMessages()
@@ -78,7 +70,11 @@ void CCompSprite::OnUpdateTransform(const CommonMessages::SUpdateTransformForRen
 
 void CCompSprite::DoInit()
 {
-	m_spriteInfo = CRenderer::Get()->GetSpriteFactory().CreateSprite();
+	if (!m_spriteInfo)
+	{
+		m_spriteInfo = CRenderer::Get()->GetSpriteFactory().CreateSprite();
+	}
+
 	if (m_spriteInfo)
 	{
 		if (!m_texture.loadFromFile(m_texturePath))

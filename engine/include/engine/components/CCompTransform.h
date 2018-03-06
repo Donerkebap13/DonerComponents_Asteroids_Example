@@ -33,21 +33,21 @@
 
 #include <SFML/Graphics/Transform.hpp>
 
-namespace DonerECS
+namespace sf
 {
-	namespace Json
-	{
-		class Value;
-	}
+	class Transformable;
 }
 
 namespace CommonMessages
 {
 	struct SGetTransform;
+	struct SGetTransformable;
+	struct SSetTransformable;
 	struct SSetPosition;
 	struct SSetRotation;
 	struct SSetScale;
 	struct SParentTransformUpdated;
+	struct SMoveTransform;
 }
 
 class CCompTransform : public DonerECS::CComponent
@@ -67,6 +67,9 @@ public:
 	void OnSetRotation(CommonMessages::SSetRotation& message);
 	void OnSetScale(CommonMessages::SSetScale& message);
 	void OnGetTransform(CommonMessages::SGetTransform& message);
+	void OnGetTransformable(CommonMessages::SGetTransformable& message);
+	void OnSetTransformable(CommonMessages::SSetTransformable& message);
+	void OnMoveTransform(CommonMessages::SMoveTransform& message);
 	void OnParentTransformUpdated(CommonMessages::SParentTransformUpdated& message);
 
 private:
@@ -74,6 +77,7 @@ private:
 	void DoUpdate(float dt) override;
 
 	void UpdateWorldTransform();
+	void UpdateWorldTransform(const sf::Transformable& localTransform);
 
 	sf::Vector2f m_position;
 	float m_rotation;

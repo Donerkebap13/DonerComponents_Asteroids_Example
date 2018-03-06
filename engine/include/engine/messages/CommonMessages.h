@@ -28,6 +28,7 @@
 #pragma once
 
 #include <SFML/Graphics/Transform.hpp>
+#include <SFML/Graphics/Transformable.hpp>
 
 namespace CommonMessages
 {
@@ -55,6 +56,22 @@ namespace CommonMessages
 		sf::Transform** m_transform;
 	};
 
+	struct SSetTransformable
+	{
+		SSetTransformable(sf::Transformable& transformable)
+			: m_transformable(transformable)
+		{}
+		sf::Transformable& m_transformable;
+	};
+
+	struct SGetTransformable
+	{
+		SGetTransformable(sf::Transformable& transformable)
+			: m_transformable(transformable)
+		{}
+		sf::Transformable& m_transformable;
+	};
+
 	struct SSetPosition
 	{
 		SSetPosition(const sf::Vector2f& position)
@@ -77,5 +94,13 @@ namespace CommonMessages
 			: m_scale(scale)
 		{}
 		sf::Vector2f m_scale;
+	};
+
+	struct SMoveTransform
+	{
+		SMoveTransform(const sf::Vector2f& offset)
+			: m_offset(offset)
+		{}
+		sf::Vector2f m_offset;
 	};
 }

@@ -25,19 +25,30 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <components/CCompMoveStraightLine.h>
+#include <engine/messages/CommonMessages.h>
+#include <engine/Defines.h>
 
-#include <engine/application/CApplicationBase.h>
+#include <donerecs/entity/CEntity.h>
 
-class CApplication : public CApplicationBase
+#include <cmath>
+
+DECS_COMPONENT_REFLECTION_IMPL(CCompMoveStraightLine)
+
+CCompMoveStraightLine::CCompMoveStraightLine()
+	: m_velocity(0.f)
+	, m_direction(0.f, 0.f)
 {
-public:
-	CApplication();
-	~CApplication() override;
+}
 
-	bool InitProject() override;
-	void UpdateProject(float dt) override {}
-	void DestroyProject() override {}
+void CCompMoveStraightLine::DoUpdate(float dt)
+{
+	sf::Transformable transformable;
+	CommonMessages::SGetTransformable getTransformableMessage(transformable);
+	m_owner.SendMessage(getTransformableMessage);
 
-	void RegisterComponentsProject() override;
-};
+	float dist = m_velocity * dt;
+	transformable.move(cos(ENGINE_ANGLE_TO_RAD(transformable.getRotation())) * dist, -sin(ENGINE_ANGLE_TO_RAD(transformable.getRotation())) * dist);
+
+	m_owner.SendMessage(CommonMessages::SSetTransformable(transformable));
+}

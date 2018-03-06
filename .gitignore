@@ -1,3 +1,5 @@
 project
 .idea
 
+/project_clang
+/project_gcc

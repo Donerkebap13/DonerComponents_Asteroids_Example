@@ -27,17 +27,27 @@
 
 #pragma once
 
-#include <engine/application/CApplicationBase.h>
+#include <engine/reflection/EngineReflection.h>
 
-class CApplication : public CApplicationBase
+#include <donerecs/component/CComponent.h>
+
+class CCompMoveStraightLine : public DonerECS::CComponent
 {
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompMoveStraightLine)
 public:
-	CApplication();
-	~CApplication() override;
+	CCompMoveStraightLine();
+	CCompMoveStraightLine(CCompMoveStraightLine& rhs) = default;
+	CCompMoveStraightLine(CCompMoveStraightLine&& rhs) = default;
+	CCompMoveStraightLine& operator=(CCompMoveStraightLine& rhs) = default;
 
-	bool InitProject() override;
-	void UpdateProject(float dt) override {}
-	void DestroyProject() override {}
+private:
+	void DoUpdate(float dt) override;
 
-	void RegisterComponentsProject() override;
+	float m_velocity;
+	sf::Vector2f m_direction;
 };
+
+DECS_DEFINE_REFLECTION_DATA(CCompMoveStraightLine,
+	DECS_ADD_VAR_INFO(m_velocity, "velocity"),
+	DECS_ADD_VAR_INFO(m_direction, "direction")
+);

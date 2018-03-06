@@ -27,17 +27,26 @@
 
 #pragma once
 
-#include <engine/application/CApplicationBase.h>
+#include <engine/reflection/EngineReflection.h>
 
-class CApplication : public CApplicationBase
+#include <donerecs/component/CComponent.h>
+
+class CCompShoot : public DonerECS::CComponent
 {
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShoot)
 public:
-	CApplication();
-	~CApplication() override;
+	CCompShoot();
+	CCompShoot(CCompShoot& rhs) = default;
+	CCompShoot(CCompShoot&& rhs) = default;
+	CCompShoot& operator=(CCompShoot& rhs) = default;
 
-	bool InitProject() override;
-	void UpdateProject(float dt) override {}
-	void DestroyProject() override {}
+private:
+	void DoUpdate(float dt) override;
 
-	void RegisterComponentsProject() override;
+	float m_cadence;
+	float m_accTime;
 };
+
+DECS_DEFINE_REFLECTION_DATA(CCompShoot,
+	DECS_ADD_VAR_INFO(m_cadence, "cadence")
+);

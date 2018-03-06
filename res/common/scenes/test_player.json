@@ -1,0 +1,24 @@
+{
+	"type": "scene",
+	"root": {
+		"name": "player",
+		"components": [
+			{
+				"name": "transform",
+				"position": [100.0, 500.0],
+				"rotation": 45,
+				"scale": [1.0, 1.0]
+			},
+			{
+				"name": "sprite",
+				"texture": "res/common/textures/ship.png",
+				"tint": [255, 0, 0, 255],
+				"origin": [0.5, 0.5]
+			},
+			{
+				"name": "shoot",
+				"cadence": 0.5
+			}
+		]
+	}
+}

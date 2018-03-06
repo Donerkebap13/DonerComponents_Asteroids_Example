@@ -32,28 +32,12 @@
 #include <donerecs/component/CComponent.h>
 
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Transform.hpp>
 
 class CSpriteInfo;
-
-namespace DonerECS
-{
-	namespace Json
-	{
-		class Value;
-	}
-}
 
 namespace CommonMessages
 {
 	struct SUpdateTransformForRender;
-}
-
-namespace sf
-{
-	class RenderWindow;
-	class Transform;
 }
 
 class CCompSprite : public DonerECS::CComponent

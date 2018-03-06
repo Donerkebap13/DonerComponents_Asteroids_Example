@@ -29,9 +29,7 @@
 #include <engine/graphics/CRenderer.h>
 #include <engine/messages/CommonMessages.h>
 
-#include <donerecs/json/json.h>
-
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace CCompSpriteInternal
 {

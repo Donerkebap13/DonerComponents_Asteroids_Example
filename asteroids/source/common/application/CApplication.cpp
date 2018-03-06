@@ -26,6 +26,8 @@
 ////////////////////////////////////////////////////////////
 
 #include <application/CApplication.h>
+#include <components/CCompMoveStraightLine.h>
+#include <components/CCompShoot.h>
 
 #include <donerecs/entity/CEntityParser.h>
 
@@ -40,7 +42,17 @@ CApplication::~CApplication()
 bool CApplication::InitProject() 
 {
 	DonerECS::CEntityParser parser;
-	parser.ParseSceneFromFile("res/common/scenes/test.json");
+	
+	// Prefabs
+	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
+	
+	parser.ParseSceneFromFile("res/common/scenes/test_player.json");
 
 	return true; 
+}
+
+void CApplication::RegisterComponentsProject()
+{
+	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
+	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 1);
 }

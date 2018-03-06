@@ -25,19 +25,8 @@
 //
 ////////////////////////////////////////////////////////////
 
+
 #pragma once
 
-#include <engine/application/CApplicationBase.h>
-
-class CApplication : public CApplicationBase
-{
-public:
-	CApplication();
-	~CApplication() override;
-
-	bool InitProject() override;
-	void UpdateProject(float dt) override {}
-	void DestroyProject() override {}
-
-	void RegisterComponentsProject() override;
-};
+#define ENGINE_PI 3.14159265f
+#define ENGINE_ANGLE_TO_RAD(x) (x * ENGINE_PI / 180.f) 

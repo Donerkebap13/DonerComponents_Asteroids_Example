@@ -25,19 +25,47 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <components/CCompShoot.h>
+#include <engine/messages/CommonMessages.h>
+#include <engine/input/CKeyboard.h>
 
-#include <engine/application/CApplicationBase.h>
+#include <donerecs/entity/CEntity.h>
+#include <donerecs/entity/CPrefabManager.h>
 
-class CApplication : public CApplicationBase
+DECS_COMPONENT_REFLECTION_IMPL(CCompShoot)
+
+CCompShoot::CCompShoot()
+	: m_cadence(0.f)
+	, m_accTime(0.f)
 {
-public:
-	CApplication();
-	~CApplication() override;
+}
 
-	bool InitProject() override;
-	void UpdateProject(float dt) override {}
-	void DestroyProject() override {}
+void CCompShoot::DoUpdate(float dt)
+{
+	m_accTime -= dt;
+	if (Input::CKeyboard::Get()->IsPressed(Input::KK_SPACE) && m_accTime <= 0.f)
+	{
+		m_accTime = m_cadence;
 
-	void RegisterComponentsProject() override;
-};
+		DonerECS::CEntity* bulletEntity = DonerECS::CPrefabManager::Get()->ClonePrefab(DonerECS::CStrID("bullet"));
+		if (bulletEntity)
+		{
+			bulletEntity->Init();
+
+			sf::Transformable transformable;
+			CommonMessages::SGetTransformable getTransformableMessage(transformable);
+			m_owner.SendMessage(getTransformableMessage);
+
+			float rot = transformable.getRotation();
+
+			bulletEntity->SendMessage(CommonMessages::SSetRotation(transformable.getRotation()));
+			bulletEntity->SendMessage(CommonMessages::SSetPosition(transformable.getPosition()));
+
+			sf::Transformable transformable2;
+			CommonMessages::SGetTransformable getTransformableMessage2(transformable2);
+			bulletEntity->SendMessage(getTransformableMessage);
+
+			bulletEntity->Activate();
+		}
+	}
+}

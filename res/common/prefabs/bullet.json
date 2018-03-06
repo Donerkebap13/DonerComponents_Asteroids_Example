@@ -1,0 +1,26 @@
+{
+	"type": "prefab",
+	"root": {
+		"name": "bullet",
+		"components": [{
+			"name": "transform",
+			"position": [0.0,
+			0.0],
+			"rotation": 0,
+			"scale": [1.0,
+			1.0]
+		},
+		{
+			"name": "sprite",
+			"texture": "res/common/textures/bullet.png",
+			"origin": [0.5,
+			0.5]
+		},
+		{
+			"name": "move_straight_line",
+			"velocity": 100.0,
+			"direction": [0.0,
+			-1.0]
+		}]
+	}
+}

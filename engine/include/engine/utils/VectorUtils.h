@@ -38,7 +38,7 @@ class CVectorUtils
 public:
 	static float Length(const sf::Vector2f& v)
 	{
-		return std::sqrtf((v.x * v.x) + (v.y * v.y));
+		return sqrtf((v.x * v.x) + (v.y * v.y));
 	}
 
 	static void Normalize(sf::Vector2f& v)

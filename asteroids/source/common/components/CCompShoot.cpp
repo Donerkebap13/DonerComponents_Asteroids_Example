@@ -50,20 +50,14 @@ void CCompShoot::DoUpdate(float dt)
 		DonerECS::CEntity* bulletEntity = DonerECS::CPrefabManager::Get()->ClonePrefab(DonerECS::CStrID("bullet"));
 		if (bulletEntity)
 		{
-			bulletEntity->Init();
-
 			sf::Transformable transformable;
 			CommonMessages::SGetTransformable getTransformableMessage(transformable);
 			m_owner.SendMessage(getTransformableMessage);
 
 			float rot = transformable.getRotation();
 
-			bulletEntity->SendMessage(CommonMessages::SSetRotation(transformable.getRotation()));
 			bulletEntity->SendMessage(CommonMessages::SSetPosition(transformable.getPosition()));
-
-			sf::Transformable transformable2;
-			CommonMessages::SGetTransformable getTransformableMessage2(transformable2);
-			bulletEntity->SendMessage(getTransformableMessage);
+			bulletEntity->SendMessage(CommonMessages::SSetRotation(transformable.getRotation()));
 
 			bulletEntity->Activate();
 		}

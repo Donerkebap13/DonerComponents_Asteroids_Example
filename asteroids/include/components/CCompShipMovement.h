@@ -25,36 +25,27 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <application/CApplication.h>
-#include <components/CCompMoveStraightLine.h>
-#include <components/CCompShoot.h>
-#include <components/CCompShipMovement.h>
+#pragma once
 
-#include <donerecs/entity/CEntityParser.h>
+#include <engine/reflection/EngineReflection.h>
 
-CApplication::CApplication()
+#include <donerecs/component/CComponent.h>
+
+class CCompShipMovement : public DonerECS::CComponent
 {
-}
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShipMovement)
+public:
+	CCompShipMovement();
+	CCompShipMovement(CCompShipMovement& rhs) = default;
+	CCompShipMovement(CCompShipMovement&& rhs) = default;
+	CCompShipMovement& operator=(CCompShipMovement& rhs) = default;
 
-CApplication::~CApplication()
-{
-}
+private:
+	void DoUpdate(float dt) override;
 
-bool CApplication::InitProject() 
-{
-	DonerECS::CEntityParser parser;
-	
-	// Prefabs
-	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
-	
-	parser.ParseSceneFromFile("res/common/scenes/test_player.json");
+	float m_velocity;
+};
 
-	return true; 
-}
-
-void CApplication::RegisterComponentsProject()
-{
-	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
-	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 1);
-	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 1);
-}
+DECS_DEFINE_REFLECTION_DATA(CCompShipMovement,
+	DECS_ADD_VAR_INFO(m_velocity, "velocity")
+);

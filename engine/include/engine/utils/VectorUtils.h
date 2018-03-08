@@ -25,36 +25,47 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <application/CApplication.h>
-#include <components/CCompMoveStraightLine.h>
-#include <components/CCompShoot.h>
-#include <components/CCompShipMovement.h>
+#pragma once
 
-#include <donerecs/entity/CEntityParser.h>
+#include <engine/Defines.h>
 
-CApplication::CApplication()
+#include <SFML/System/Vector2.hpp>
+
+#include <cmath>
+
+class CVectorUtils
 {
-}
+public:
+	static float Length(const sf::Vector2f& v)
+	{
+		return std::sqrtf((v.x * v.x) + (v.y * v.y));
+	}
 
-CApplication::~CApplication()
-{
-}
+	static void Normalize(sf::Vector2f& v)
+	{
+		float length = Length(v);
+		v.x /= length;
+		v.y /= length;
+	}
 
-bool CApplication::InitProject() 
-{
-	DonerECS::CEntityParser parser;
-	
-	// Prefabs
-	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
-	
-	parser.ParseSceneFromFile("res/common/scenes/test_player.json");
+	static sf::Vector2f Normalized(const sf::Vector2f& v)
+	{
+		float length = Length(v);
+		return sf::Vector2f(v.x / length, v.y / length);
+	}
 
-	return true; 
-}
+	static float Dot(const sf::Vector2f& v1, const sf::Vector2f& v2)
+	{
+		return (v1.x * v2.x) + (v1.y * v2.y);
+	}
 
-void CApplication::RegisterComponentsProject()
-{
-	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
-	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 1);
-	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 1);
-}
+	static float GetAngleInRadians(const sf::Vector2f& v)
+	{
+		return atan2f(v.x, -v.y);
+	}
+
+	static float GetAngleInDegrees(const sf::Vector2f& v)
+	{
+		return ENGINE_RAD_TO_DEG(GetAngleInRadians(v));
+	}
+};

@@ -37,18 +37,11 @@ DECS_COMPONENT_REFLECTION_IMPL(CCompMoveStraightLine)
 
 CCompMoveStraightLine::CCompMoveStraightLine()
 	: m_velocity(0.f)
-	, m_direction(0.f, 0.f)
 {
 }
 
 void CCompMoveStraightLine::DoUpdate(float dt)
 {
-	sf::Transformable transformable;
-	CommonMessages::SGetTransformable getTransformableMessage(transformable);
-	m_owner.SendMessage(getTransformableMessage);
-
 	float dist = m_velocity * dt;
-	transformable.move(cos(ENGINE_ANGLE_TO_RAD(transformable.getRotation())) * dist, -sin(ENGINE_ANGLE_TO_RAD(transformable.getRotation())) * dist);
-
-	m_owner.SendMessage(CommonMessages::SSetTransformable(transformable));
+	m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
 }

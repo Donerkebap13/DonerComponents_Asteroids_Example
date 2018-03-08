@@ -18,9 +18,7 @@
 		},
 		{
 			"name": "move_straight_line",
-			"velocity": 100.0,
-			"direction": [0.0,
-			-1.0]
+			"velocity": 300.0
 		}]
 	}
 }

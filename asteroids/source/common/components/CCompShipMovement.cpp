@@ -25,36 +25,36 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <application/CApplication.h>
-#include <components/CCompMoveStraightLine.h>
-#include <components/CCompShoot.h>
 #include <components/CCompShipMovement.h>
+#include <engine/messages/CommonMessages.h>
+#include <engine/Defines.h>
+#include <engine/input/CKeyboard.h>
+#include <engine/input/CMouse.h>
 
-#include <donerecs/entity/CEntityParser.h>
+#include <donerecs/entity/CEntity.h>
 
-CApplication::CApplication()
+#include <cmath>
+
+DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
+
+CCompShipMovement::CCompShipMovement()
+	: m_velocity(0.f)
+{}
+
+void CCompShipMovement::DoUpdate(float dt)
 {
-}
+	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
 
-CApplication::~CApplication()
-{
-}
+	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(mousePos.x, mousePos.y));
+	m_owner.SendMessage(lookAtMessage);
 
-bool CApplication::InitProject() 
-{
-	DonerECS::CEntityParser parser;
-	
-	// Prefabs
-	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
-	
-	parser.ParseSceneFromFile("res/common/scenes/test_player.json");
-
-	return true; 
-}
-
-void CApplication::RegisterComponentsProject()
-{
-	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
-	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 1);
-	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 1);
+	float dist = m_velocity * dt;
+	if (Input::CKeyboard::Get()->IsPressed(Input::KK_S))
+	{
+		m_owner.SendMessage(CommonMessages::SMoveTransform(-dist));
+	}
+	else
+	{
+		m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
+	}
 }

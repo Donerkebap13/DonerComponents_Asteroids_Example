@@ -27,11 +27,14 @@
 
 #include <engine/components/CCompTransform.h>
 #include <engine/messages/CommonMessages.h>
+#include <engine/utils/VectorUtils.h>
+#include <engine/Defines.h>
 
 #include <donerecs/entity/CEntity.h>
 
 #include <SFML/Graphics/Transformable.hpp>
 
+#include <cmath>
 
 DECS_COMPONENT_REFLECTION_IMPL(CCompTransform)
 
@@ -53,6 +56,7 @@ void CCompTransform::RegisterMessages()
 	RegisterMessage(&CCompTransform::OnSetTransformable);
 	RegisterMessage(&CCompTransform::OnMoveTransform);
 	RegisterMessage(&CCompTransform::OnParentTransformUpdated);
+	RegisterMessage(&CCompTransform::OnLookAt);
 }
 
 void CCompTransform::DoInit()
@@ -116,7 +120,8 @@ void CCompTransform::OnMoveTransform(CommonMessages::SMoveTransform& message)
 	localTransform.setRotation(m_rotation);
 	localTransform.setScale(m_scale);
 
-	localTransform.move(message.m_offset);
+	float rotationRad = ENGINE_DEG_TO_RAD(m_rotation) - ENGINE_HALF_PI;
+	localTransform.move(cos(rotationRad) * message.m_amount, sin(rotationRad) * message.m_amount);
 
 	m_position = localTransform.getPosition();
 
@@ -125,6 +130,15 @@ void CCompTransform::OnMoveTransform(CommonMessages::SMoveTransform& message)
 
 void CCompTransform::OnParentTransformUpdated(CommonMessages::SParentTransformUpdated& message)
 {
+	UpdateWorldTransform();
+}
+
+void CCompTransform::OnLookAt(CommonMessages::SLookAt& message)
+{
+	sf::Vector2f dstFront = message.m_position - m_position;
+	CVectorUtils::Normalize(dstFront);
+	m_rotation = CVectorUtils::GetAngleInDegrees(dstFront);
+
 	UpdateWorldTransform();
 }
 

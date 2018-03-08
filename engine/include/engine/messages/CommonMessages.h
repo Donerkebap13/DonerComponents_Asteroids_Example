@@ -98,9 +98,17 @@ namespace CommonMessages
 
 	struct SMoveTransform
 	{
-		SMoveTransform(const sf::Vector2f& offset)
-			: m_offset(offset)
+		SMoveTransform(float amount)
+			: m_amount(amount)
 		{}
-		sf::Vector2f m_offset;
+		float m_amount;
+	};
+
+	struct SLookAt
+	{
+		SLookAt(const sf::Vector2f& position)
+			: m_position(position)
+		{}
+		sf::Vector2f m_position;
 	};
 }

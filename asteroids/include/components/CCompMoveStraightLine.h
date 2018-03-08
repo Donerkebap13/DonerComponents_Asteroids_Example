@@ -44,10 +44,8 @@ private:
 	void DoUpdate(float dt) override;
 
 	float m_velocity;
-	sf::Vector2f m_direction;
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompMoveStraightLine,
-	DECS_ADD_VAR_INFO(m_velocity, "velocity"),
-	DECS_ADD_VAR_INFO(m_direction, "direction")
+	DECS_ADD_VAR_INFO(m_velocity, "velocity")
 );

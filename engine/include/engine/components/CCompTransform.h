@@ -48,6 +48,7 @@ namespace CommonMessages
 	struct SSetScale;
 	struct SParentTransformUpdated;
 	struct SMoveTransform;
+	struct SLookAt;
 }
 
 class CCompTransform : public DonerECS::CComponent
@@ -71,6 +72,7 @@ public:
 	void OnSetTransformable(CommonMessages::SSetTransformable& message);
 	void OnMoveTransform(CommonMessages::SMoveTransform& message);
 	void OnParentTransformUpdated(CommonMessages::SParentTransformUpdated& message);
+	void OnLookAt(CommonMessages::SLookAt& message);
 
 private:
 	void DoInit() override;

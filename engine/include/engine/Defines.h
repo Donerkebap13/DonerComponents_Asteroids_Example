@@ -29,4 +29,7 @@
 #pragma once
 
 #define ENGINE_PI 3.14159265f
-#define ENGINE_ANGLE_TO_RAD(x) (x * ENGINE_PI / 180.f) 
+#define ENGINE_2_PI ENGINE_PI * 2.f
+#define ENGINE_HALF_PI ENGINE_PI * 0.5f
+#define ENGINE_DEG_TO_RAD(x) ((float) (x * (ENGINE_PI / 180.f))) 
+#define ENGINE_RAD_TO_DEG(x) ((float) (x * (180.f / ENGINE_PI))) 

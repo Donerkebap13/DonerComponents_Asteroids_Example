@@ -71,3 +71,9 @@ void CRenderer::Render()
 
 	m_mainWindow->display();
 }
+
+sf::FloatRect CRenderer::GetScreenBoundaries() const
+{
+	sf::IntRect boundaries = m_mainWindow->getViewport(m_mainWindow->getDefaultView());
+	return sf::FloatRect(boundaries.left, boundaries.top, boundaries.width, boundaries.height);
+}

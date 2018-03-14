@@ -25,39 +25,40 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <application/CApplication.h>
-#include <components/CCompMoveStraightLine.h>
-#include <components/CCompShoot.h>
-#include <components/CCompShipMovement.h>
 #include <components/CCompBoundariesChecker.h>
+#include <engine/graphics/CRenderer.h>
+#include <engine/messages/CommonMessages.h>
 
-#include <donerecs/entity/CEntityParser.h>
+#include <donerecs/entity/CEntity.h>
 
-CApplication::CApplication()
+CCompBoundariesChecker::CCompBoundariesChecker()
+	: m_screenBoundaries(CRenderer::Get()->GetScreenBoundaries())
 {
 }
 
-CApplication::~CApplication()
+void CCompBoundariesChecker::RegisterMessages()
 {
+	RegisterMessage(&CCompBoundariesChecker::OnAABBUpdated);
+	RegisterMessage(&CCompBoundariesChecker::OnDestroyEntity);
 }
 
-bool CApplication::InitProject() 
+void CCompBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& message)
 {
-	DonerECS::CEntityParser parser;
-	
-	// Prefabs
-	parser.ParseSceneFromFile("res/common/prefabs/player.json");
-	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
-	
-	parser.ParseSceneFromFile("res/common/scenes/main.json");
-
-	return true; 
+	if (!m_screenBoundaries.intersects(message.m_AABB))
+	{
+		m_owner.PostMessage(CommonMessages::SDestroyEntity(message.m_entity));
+	}
 }
 
-void CApplication::RegisterComponentsProject()
+void CCompBoundariesChecker::OnDestroyEntity(CommonMessages::SDestroyEntity& message)
 {
-	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
-	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 2);
-	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 2);
-	ADD_COMPONENT_FACTORY("boundaries_checker", CCompBoundariesChecker, 2);
+	bool success = DonerECS::CEntityManager::Get()->DestroyEntity(message.m_entity);
+	if (success)
+	{
+		printf("Entity destroyed!\n");
+	}
+	else
+	{
+		printf("Entity NOT destroyed!\n");
+	}
 }

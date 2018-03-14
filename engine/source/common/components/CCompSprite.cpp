@@ -29,6 +29,8 @@
 #include <engine/graphics/CRenderer.h>
 #include <engine/messages/CommonMessages.h>
 
+#include <donerecs/entity/CEntity.h>
+
 #include <SFML/Graphics/Sprite.hpp>
 
 namespace CCompSpriteInternal
@@ -74,6 +76,9 @@ void CCompSprite::RegisterMessages()
 void CCompSprite::OnUpdateTransform(const CommonMessages::SUpdateTransformForRender& message)
 {
 	m_spriteInfo->m_transform = message.m_transform;
+	m_spriteInfo->m_AABB = message.m_transform.transformRect(m_spriteInfo->m_sprite.getLocalBounds());
+
+	DonerECS::CEntityManager::Get()->BroadcastMessage(CommonMessages::SAABBUpdated(m_spriteInfo->m_AABB, m_owner));
 }
 
 void CCompSprite::DoInit()

@@ -42,6 +42,7 @@ class CSpriteInfo : public DonerECS::CECSElement
 public:
 	sf::Sprite m_sprite;
 	sf::Transform m_transform;
+	sf::FloatRect m_AABB;
 };
 
 class CSpriteFactory : public DonerECS::CFactory<CSpriteInfo>

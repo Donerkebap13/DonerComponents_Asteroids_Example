@@ -25,39 +25,27 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <application/CApplication.h>
-#include <components/CCompMoveStraightLine.h>
-#include <components/CCompShoot.h>
-#include <components/CCompShipMovement.h>
-#include <components/CCompBoundariesChecker.h>
+#pragma once
 
-#include <donerecs/entity/CEntityParser.h>
+#include <donerecs/component/CComponent.h>
 
-CApplication::CApplication()
+#include <SFML/Graphics/Rect.hpp>
+
+namespace CommonMessages
 {
+	struct SAABBUpdated;
+	struct SDestroyEntity;
 }
 
-CApplication::~CApplication()
+class CCompBoundariesChecker : public DonerECS::CComponent
 {
-}
+public:
+	CCompBoundariesChecker();
 
-bool CApplication::InitProject() 
-{
-	DonerECS::CEntityParser parser;
-	
-	// Prefabs
-	parser.ParseSceneFromFile("res/common/prefabs/player.json");
-	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
-	
-	parser.ParseSceneFromFile("res/common/scenes/main.json");
+	void RegisterMessages() override;
 
-	return true; 
-}
-
-void CApplication::RegisterComponentsProject()
-{
-	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
-	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 2);
-	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 2);
-	ADD_COMPONENT_FACTORY("boundaries_checker", CCompBoundariesChecker, 2);
-}
+	void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
+	void OnDestroyEntity(CommonMessages::SDestroyEntity& message);
+private:
+	sf::FloatRect m_screenBoundaries;
+};

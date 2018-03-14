@@ -111,4 +111,22 @@ namespace CommonMessages
 		{}
 		sf::Vector2f m_position;
 	};
+
+	struct SAABBUpdated
+	{
+		SAABBUpdated(const sf::FloatRect& AABB, DonerECS::CHandle entity)
+			: m_AABB(AABB)
+			, m_entity(entity)
+		{}
+		sf::FloatRect m_AABB;
+		DonerECS::CHandle m_entity;
+	};
+
+	struct SDestroyEntity
+	{
+		SDestroyEntity(DonerECS::CHandle entity)
+			: m_entity(entity)
+		{}
+		DonerECS::CHandle m_entity;
+	};
 }

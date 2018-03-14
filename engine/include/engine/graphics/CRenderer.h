@@ -31,6 +31,8 @@
 
 #include <donerecs/common/CSingleton.h>
 
+#include <SFML/Graphics/Rect.hpp>
+
 struct SApplicationWindowParameters;
 
 namespace sf
@@ -49,6 +51,8 @@ public:
 	void Render();
 
 	CSpriteFactory& GetSpriteFactory() { return m_spriteFactory; }
+
+	sf::FloatRect GetScreenBoundaries() const;
 
 private:
 	sf::RenderWindow* m_mainWindow;

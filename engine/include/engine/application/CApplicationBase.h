@@ -33,6 +33,7 @@ class CRenderer;
 namespace DonerECS
 {
 	class CComponentFactoryManager;
+	class CEntityManager;
 }
 
 namespace Input
@@ -71,5 +72,6 @@ protected:
 	Input::CKeyboard* m_keyboard;
 	Input::CMouse* m_mouse;
 
+	DonerECS::CEntityManager* m_entityManager;
 	DonerECS::CComponentFactoryManager* m_componentFactoryManager;
 };

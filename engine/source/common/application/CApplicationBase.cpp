@@ -42,7 +42,8 @@
 #include <SFML/Window/Event.hpp>
 
 CApplicationBase::CApplicationBase()
-	: m_componentFactoryManager(nullptr)
+	: m_entityManager(nullptr)
+	, m_componentFactoryManager(nullptr)
 {
 }
 
@@ -79,6 +80,7 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 
 	DonerECS::InitializeDonerECSSystems();
 	m_componentFactoryManager = DonerECS::CComponentFactoryManager::Get();
+	m_entityManager = DonerECS::CEntityManager::Get();
 
 	RegisterComponents();
 
@@ -118,6 +120,7 @@ void CApplicationBase::Update()
 		m_mouse->Update(elapsed);
 
 		m_componentFactoryManager->Update(elapsed);
+		m_entityManager->SendPostMsgs();
 
 		UpdateProject(elapsed);
 

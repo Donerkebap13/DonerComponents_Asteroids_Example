@@ -121,12 +121,4 @@ namespace CommonMessages
 		sf::FloatRect m_AABB;
 		DonerECS::CHandle m_entity;
 	};
-
-	struct SDestroyEntity
-	{
-		SDestroyEntity(DonerECS::CHandle entity)
-			: m_entity(entity)
-		{}
-		DonerECS::CHandle m_entity;
-	};
 }

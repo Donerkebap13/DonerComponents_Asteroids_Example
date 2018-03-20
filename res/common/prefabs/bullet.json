@@ -19,6 +19,9 @@
 		{
 			"name": "move_straight_line",
 			"velocity": 300.0
+		},
+		{
+			"name": "boundaries_checker"
 		}]
 	}
 }

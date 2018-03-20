@@ -34,7 +34,6 @@
 namespace CommonMessages
 {
 	struct SAABBUpdated;
-	struct SDestroyEntity;
 }
 
 class CCompBoundariesChecker : public DonerECS::CComponent
@@ -45,7 +44,6 @@ public:
 	void RegisterMessages() override;
 
 	void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
-	void OnDestroyEntity(CommonMessages::SDestroyEntity& message);
 private:
 	sf::FloatRect m_screenBoundaries;
 };

@@ -31,7 +31,7 @@
 #include <engine/input/CMouse.h>
 #include <engine/graphics/CRenderer.h>
 
-#include <donerecs/DonerECSSystems.h>
+#include <donerecs/CDonerECSSystems.h>
 
 #include <engine/components/CCompTransform.h>
 #include <engine/components/CCompSprite.h>
@@ -42,8 +42,11 @@
 #include <SFML/Window/Event.hpp>
 
 CApplicationBase::CApplicationBase()
-	: m_entityManager(nullptr)
-	, m_componentFactoryManager(nullptr)
+	: m_mainWindow(nullptr)
+	, m_renderer(nullptr)
+	, m_keyboard(nullptr)
+	, m_mouse(nullptr)
+	, m_donerECSSystems(nullptr)
 {
 }
 
@@ -78,9 +81,8 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 		return false;
 	}
 
-	DonerECS::InitializeDonerECSSystems();
-	m_componentFactoryManager = DonerECS::CComponentFactoryManager::Get();
-	m_entityManager = DonerECS::CEntityManager::Get();
+	m_donerECSSystems = DonerECS::CDonerECSSystems::CreateInstance();
+	m_donerECSSystems->Init();
 
 	RegisterComponents();
 
@@ -119,8 +121,7 @@ void CApplicationBase::Update()
 		m_keyboard->Update(elapsed);
 		m_mouse->Update(elapsed);
 
-		m_componentFactoryManager->Update(elapsed);
-		m_entityManager->SendPostMsgs();
+		m_donerECSSystems->Update(elapsed);
 
 		UpdateProject(elapsed);
 
@@ -132,8 +133,7 @@ void CApplicationBase::Destroy()
 {
 	DestroyProject( );
 
-	DonerECS::DestroyDonerECSSystems();
-	m_componentFactoryManager = nullptr;
+	DonerECS::CDonerECSSystems::DestroyInstance();
 
 	CRenderer::DestroyInstance();
 	Input::CKeyboard::DestroyInstance();

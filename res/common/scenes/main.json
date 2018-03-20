@@ -10,15 +10,6 @@
 				500.0],
 				"rotation": 45
 			}]
-		},
-		{
-			"name": "logic_checker",
-			"components": [{
-				"name": "boundaries_checker",
-				"position": [100.0,
-				500.0],
-				"rotation": 45
-			}]
 		}
 		]
 	}

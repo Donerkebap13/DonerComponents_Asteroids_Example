@@ -59,5 +59,5 @@ void CApplication::RegisterComponentsProject()
 	ADD_COMPONENT_FACTORY("move_straight_line", CCompMoveStraightLine, 4096);
 	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 2);
 	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 2);
-	ADD_COMPONENT_FACTORY("boundaries_checker", CCompBoundariesChecker, 2);
+	ADD_COMPONENT_FACTORY("boundaries_checker", CCompBoundariesChecker, 4096);
 }

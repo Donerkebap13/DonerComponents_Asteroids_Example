@@ -29,13 +29,15 @@
 #include <engine/messages/CommonMessages.h>
 #include <engine/input/CKeyboard.h>
 
+#include <donerecs/CDonerECSSystems.h>
 #include <donerecs/entity/CEntity.h>
 #include <donerecs/entity/CPrefabManager.h>
 
 DECS_COMPONENT_REFLECTION_IMPL(CCompShoot)
 
 CCompShoot::CCompShoot()
-	: m_cadence(0.f)
+	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())
+	, m_cadence(0.f)
 	, m_accTime(0.f)
 {
 }
@@ -47,7 +49,7 @@ void CCompShoot::DoUpdate(float dt)
 	{
 		m_accTime = m_cadence;
 
-		DonerECS::CEntity* bulletEntity = DonerECS::CPrefabManager::Get()->ClonePrefab(DonerECS::CStrID("bullet"));
+		DonerECS::CEntity* bulletEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID("bullet"));
 		if (bulletEntity)
 		{
 			sf::Transformable transformable;

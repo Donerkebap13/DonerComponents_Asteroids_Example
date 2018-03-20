@@ -39,26 +39,12 @@ CCompBoundariesChecker::CCompBoundariesChecker()
 void CCompBoundariesChecker::RegisterMessages()
 {
 	RegisterMessage(&CCompBoundariesChecker::OnAABBUpdated);
-	RegisterMessage(&CCompBoundariesChecker::OnDestroyEntity);
 }
 
 void CCompBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& message)
 {
 	if (!m_screenBoundaries.intersects(message.m_AABB))
 	{
-		m_owner.PostMessage(CommonMessages::SDestroyEntity(message.m_entity));
-	}
-}
-
-void CCompBoundariesChecker::OnDestroyEntity(CommonMessages::SDestroyEntity& message)
-{
-	bool success = DonerECS::CEntityManager::Get()->DestroyEntity(message.m_entity);
-	if (success)
-	{
-		printf("Entity destroyed!\n");
-	}
-	else
-	{
-		printf("Entity NOT destroyed!\n");
+		m_owner.Destroy();
 	}
 }

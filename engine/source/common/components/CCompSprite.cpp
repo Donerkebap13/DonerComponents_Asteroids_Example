@@ -78,7 +78,7 @@ void CCompSprite::OnUpdateTransform(const CommonMessages::SUpdateTransformForRen
 	m_spriteInfo->m_transform = message.m_transform;
 	m_spriteInfo->m_AABB = message.m_transform.transformRect(m_spriteInfo->m_sprite.getLocalBounds());
 
-	DonerECS::CEntityManager::Get()->BroadcastMessage(CommonMessages::SAABBUpdated(m_spriteInfo->m_AABB, m_owner));
+	m_owner.SendMessage(CommonMessages::SAABBUpdated(m_spriteInfo->m_AABB, m_owner));
 }
 
 void CCompSprite::DoInit()

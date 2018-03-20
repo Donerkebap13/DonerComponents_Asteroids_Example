@@ -45,7 +45,8 @@ void CCompShipMovement::DoUpdate(float dt)
 {
 	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
 
-	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(mousePos.x, mousePos.y));
+	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(static_cast<float>(mousePos.x),
+													   static_cast<float>(mousePos.y)));
 	m_owner.SendMessage(lookAtMessage);
 
 	float dist = m_velocity * dt;

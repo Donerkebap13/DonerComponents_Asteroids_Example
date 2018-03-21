@@ -31,6 +31,11 @@
 
 #include <donerecs/component/CComponent.h>
 
+namespace DonerECS
+{
+	class CPrefabManager;
+}
+
 class CCompShoot : public DonerECS::CComponent
 {
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShoot)
@@ -42,6 +47,8 @@ public:
 
 private:
 	void DoUpdate(float dt) override;
+
+	DonerECS::CPrefabManager* m_prefabManager;
 
 	float m_cadence;
 	float m_accTime;

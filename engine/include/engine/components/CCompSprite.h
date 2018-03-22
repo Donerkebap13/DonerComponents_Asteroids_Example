@@ -46,6 +46,7 @@ class CCompSprite : public DonerECS::CComponent
 public:
 	CCompSprite();
 	CCompSprite(CCompSprite& rhs);
+	CCompSprite(CCompSprite&& rhs) = default; // Mandatory as we're defining the copy ctor
 
 	void RegisterMessages() override;
 

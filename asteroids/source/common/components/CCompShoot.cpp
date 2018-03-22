@@ -52,6 +52,9 @@ void CCompShoot::DoUpdate(float dt)
 		DonerECS::CEntity* bulletEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID("bullet"));
 		if (bulletEntity)
 		{
+			bulletEntity->Init();
+			bulletEntity->Activate();
+			
 			sf::Transformable transformable;
 			CommonMessages::SGetTransformable getTransformableMessage(transformable);
 			m_owner.SendMessage(getTransformableMessage);
@@ -60,8 +63,6 @@ void CCompShoot::DoUpdate(float dt)
 
 			bulletEntity->SendMessage(CommonMessages::SSetPosition(transformable.getPosition()));
 			bulletEntity->SendMessage(CommonMessages::SSetRotation(transformable.getRotation()));
-
-			bulletEntity->Activate();
 		}
 	}
 }

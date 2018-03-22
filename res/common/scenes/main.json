@@ -1,16 +1,27 @@
 {
 	"type": "scene",
 	"root": {
-		"children": [{
-			"name": "player",
-			"prefab": "player",
-			"components": [{
-				"name": "transform",
-				"position": [100.0,
-				500.0],
-				"rotation": 45
-			}]
-		}
+		"children": [
+			{
+				"name": "player",
+				"prefab": "player",
+				"components": [{
+					"name": "transform",
+					"position": [100.0,
+					500.0],
+					"rotation": 45
+				}]
+			},
+			{
+				"name": "asteroid",
+				"prefab": "asteroid_big",
+				"components": [{
+					"name": "transform",
+					"position": [200.0,
+					500.0],
+					"rotation": 45
+				}]
+			}
 		]
 	}
 }

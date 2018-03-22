@@ -36,9 +36,6 @@ class CCompMoveStraightLine : public DonerECS::CComponent
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompMoveStraightLine)
 public:
 	CCompMoveStraightLine();
-	CCompMoveStraightLine(CCompMoveStraightLine& rhs) = default;
-	CCompMoveStraightLine(CCompMoveStraightLine&& rhs) = default;
-	CCompMoveStraightLine& operator=(CCompMoveStraightLine& rhs) = default;
 
 private:
 	void DoUpdate(float dt) override;
@@ -47,5 +44,5 @@ private:
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompMoveStraightLine,
-	DECS_ADD_VAR_INFO(m_velocity, "velocity")
-);
+	DECS_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
+)

@@ -56,9 +56,6 @@ class CCompTransform : public DonerECS::CComponent
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompTransform)
 public:
 	CCompTransform();
-	CCompTransform(CCompTransform& rhs) = default;
-	CCompTransform(CCompTransform&& rhs) = default;
-	CCompTransform& operator=(CCompTransform& rhs) = default;
 
 	void RegisterMessages() override;
 
@@ -91,7 +88,7 @@ private:
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompTransform,
-	DECS_ADD_VAR_INFO(m_position, "position"),
-	DECS_ADD_VAR_INFO(m_rotation, "rotation"),
-	DECS_ADD_VAR_INFO(m_scale, "scale")
-);
+	DECS_ADD_NAMED_VAR_INFO(m_position, "position"),
+	DECS_ADD_NAMED_VAR_INFO(m_rotation, "rotation"),
+	DECS_ADD_NAMED_VAR_INFO(m_scale, "scale")
+)

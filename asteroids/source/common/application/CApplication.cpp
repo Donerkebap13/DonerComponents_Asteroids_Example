@@ -33,6 +33,8 @@
 
 #include <donerecs/entity/CEntityParser.h>
 
+#include <components/CCompShipMovement.h>
+
 CApplication::CApplication()
 {
 }
@@ -46,8 +48,9 @@ bool CApplication::InitProject()
 	DonerECS::CEntityParser parser;
 	
 	// Prefabs
-	parser.ParseSceneFromFile("res/common/prefabs/player.json");
-	parser.ParseSceneFromFile("res/common/prefabs/bullet.json");
+	parser.ParsePrefabFromFile("res/common/prefabs/player.json");
+	parser.ParsePrefabFromFile("res/common/prefabs/bullet.json");
+	parser.ParsePrefabFromFile("res/common/prefabs/asteroid_big.json");
 	
 	parser.ParseSceneFromFile("res/common/scenes/main.json");
 

@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include <engine/reflection/EngineReflection.h>
+
 #include <donerecs/component/CComponent.h>
 
 #include <SFML/Graphics/Rect.hpp>
@@ -38,6 +40,7 @@ namespace CommonMessages
 
 class CCompBoundariesChecker : public DonerECS::CComponent
 {
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
 public:
 	CCompBoundariesChecker();
 
@@ -46,4 +49,9 @@ public:
 	void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
 private:
 	sf::FloatRect m_screenBoundaries;
+	bool m_destroyParent;
 };
+
+DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
+	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
+)

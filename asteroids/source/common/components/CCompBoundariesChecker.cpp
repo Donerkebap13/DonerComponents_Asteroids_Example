@@ -31,8 +31,11 @@
 
 #include <donerecs/entity/CEntity.h>
 
+DECS_COMPONENT_REFLECTION_IMPL(CCompBoundariesChecker)
+
 CCompBoundariesChecker::CCompBoundariesChecker()
 	: m_screenBoundaries(CRenderer::Get()->GetScreenBoundaries())
+	, m_destroyParent(false)
 {
 }
 
@@ -45,6 +48,14 @@ void CCompBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& m
 {
 	if (!m_screenBoundaries.intersects(message.m_AABB))
 	{
-		m_owner.Destroy();
+		if (m_destroyParent)
+		{
+			DonerECS::CEntity* owner = m_owner;
+			owner->GetParent().Destroy();
+		}
+		else
+		{
+			m_owner.Destroy();
+		}
 	}
 }

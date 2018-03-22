@@ -1,0 +1,36 @@
+{
+	"type": "prefab",
+	"root": {
+		"name": "asteroid_big",
+		"components": [{
+			"name": "transform",
+			"position": [0.0,
+			0.0],
+			"rotation": 0,
+			"scale": [1.0,
+			1.0]
+		},
+		{
+			"name": "move_straight_line",
+			"velocity": 100.0
+		}
+		],
+		"children":[
+		{
+			"name": "sprite",
+			"components": [
+				{
+					"name": "sprite",
+					"texture": "res/common/textures/asteroid_big.png",
+					"origin": [0.5,
+					0.5]
+				},
+				{
+					"name": "boundaries_checker",
+					"destroy_parent": true
+				}
+			]
+		}
+		]
+	}
+}

@@ -41,9 +41,6 @@ class CCompShoot : public DonerECS::CComponent
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShoot)
 public:
 	CCompShoot();
-	CCompShoot(CCompShoot& rhs) = default;
-	CCompShoot(CCompShoot&& rhs) = default;
-	CCompShoot& operator=(CCompShoot& rhs) = default;
 
 private:
 	void DoUpdate(float dt) override;
@@ -55,5 +52,5 @@ private:
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompShoot,
-	DECS_ADD_VAR_INFO(m_cadence, "cadence")
-);
+	DECS_ADD_NAMED_VAR_INFO(m_cadence, "cadence")
+)

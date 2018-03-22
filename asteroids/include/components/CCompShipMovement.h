@@ -36,9 +36,6 @@ class CCompShipMovement : public DonerECS::CComponent
 	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShipMovement)
 public:
 	CCompShipMovement();
-	CCompShipMovement(CCompShipMovement& rhs) = default;
-	CCompShipMovement(CCompShipMovement&& rhs) = default;
-	CCompShipMovement& operator=(CCompShipMovement& rhs) = default;
 
 private:
 	void DoUpdate(float dt) override;
@@ -47,5 +44,5 @@ private:
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompShipMovement,
-	DECS_ADD_VAR_INFO(m_velocity, "velocity")
-);
+	DECS_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
+)

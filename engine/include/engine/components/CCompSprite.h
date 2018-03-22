@@ -46,8 +46,6 @@ class CCompSprite : public DonerECS::CComponent
 public:
 	CCompSprite();
 	CCompSprite(CCompSprite& rhs);
-	CCompSprite(CCompSprite&& rhs) = default;
-	CCompSprite& operator=(CCompSprite& rhs);
 
 	void RegisterMessages() override;
 
@@ -56,6 +54,7 @@ public:
 private:
 	void DoInit() override;
 	void DoDestroy() override;
+
 	std::string m_texturePath;
 	sf::Color m_tintColor;
 	sf::Vector2f m_origin;
@@ -65,8 +64,8 @@ private:
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompSprite,
-	DECS_ADD_VAR_INFO(m_texturePath, "texture"),
-	DECS_ADD_VAR_INFO(m_tintColor, "tint"),
-	DECS_ADD_VAR_INFO(m_origin, "origin"),
-	DECS_ADD_VAR_INFO(m_smooth, "smooth")
+	DECS_ADD_NAMED_VAR_INFO(m_texturePath, "texture"),
+	DECS_ADD_NAMED_VAR_INFO(m_tintColor, "tint"),
+	DECS_ADD_NAMED_VAR_INFO(m_origin, "origin"),
+	DECS_ADD_NAMED_VAR_INFO(m_smooth, "smooth")
 )

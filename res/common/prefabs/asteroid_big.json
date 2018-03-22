@@ -20,6 +20,9 @@
 			"name": "sprite",
 			"components": [
 				{
+					"name": "transform"
+				},
+				{
 					"name": "sprite",
 					"texture": "res/common/textures/asteroid_big.png",
 					"origin": [0.5,

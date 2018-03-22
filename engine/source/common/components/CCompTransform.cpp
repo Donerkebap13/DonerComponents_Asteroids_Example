@@ -41,7 +41,7 @@ DECS_COMPONENT_REFLECTION_IMPL(CCompTransform)
 CCompTransform::CCompTransform()
 	: m_position(0.f, 0.f)
 	, m_rotation(0)
-	, m_scale(0.f, 0.f)
+	, m_scale(1.f, 1.f)
 	, m_dirty(false)
 {
 }

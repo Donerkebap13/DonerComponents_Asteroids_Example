@@ -13,13 +13,13 @@
 				}]
 			},
 			{
-				"name": "asteroid",
-				"prefab": "asteroid_big",
+				"name": "asteroid_spawner",
 				"components": [{
-					"name": "transform",
-					"position": [200.0,
-					500.0],
-					"rotation": 45
+					"name": "asteroid_spawner",
+					"prefab_name": "asteroid_big",
+					"check_cadence": 1.0,
+					"max_asteroids": 15,
+					"spawn_area": [0.5, 0.5]
 				}]
 			}
 		]

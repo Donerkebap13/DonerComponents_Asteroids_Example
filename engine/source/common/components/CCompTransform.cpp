@@ -42,7 +42,6 @@ CCompTransform::CCompTransform()
 	: m_position(0.f, 0.f)
 	, m_rotation(0)
 	, m_scale(1.f, 1.f)
-	, m_dirty(false)
 {
 }
 
@@ -62,16 +61,6 @@ void CCompTransform::RegisterMessages()
 void CCompTransform::DoInit()
 {
 	UpdateWorldTransform();
-}
-
-void CCompTransform::DoUpdate(float dt)
-{
-	if (m_dirty)
-	{
-		CommonMessages::SUpdateTransformForRender message(m_worldTransform);
-		m_owner.SendMessage(message);
-		m_dirty = false;
-	}
 }
 
 void CCompTransform::OnSetPosition(CommonMessages::SSetPosition& message)
@@ -167,7 +156,7 @@ void CCompTransform::UpdateWorldTransform(const sf::Transformable& localTransfor
 		m_worldTransform = localTransform.getTransform();
 	}
 
-	CommonMessages::SParentTransformUpdated parentTransformUpdatedMessage(m_worldTransform);
-	m_owner.SendMessageToChildren(parentTransformUpdatedMessage);
-	m_dirty = true;
+	m_owner.SendMessageToChildren(CommonMessages::SParentTransformUpdated(m_worldTransform));
+
+	m_owner.SendMessage(CommonMessages::SUpdateTransformForRender(m_worldTransform));
 }

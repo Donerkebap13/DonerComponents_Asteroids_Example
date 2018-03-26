@@ -33,27 +33,44 @@
 
 #include <SFML/Graphics/Rect.hpp>
 
-namespace CommonMessages
+#include <vector>
+
+namespace DonerECS
 {
-	struct SAABBUpdated;
+	class CPrefabManager;
 }
 
-class CCompBoundariesChecker : public DonerECS::CComponent
+class CCompAsteroidSpawner : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompAsteroidSpawner)
 public:
-	CCompBoundariesChecker();
+	CCompAsteroidSpawner();
 
-	void RegisterMessages() override;
-
-	void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
 private:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
+	void DoActivate() override;
+	void DoUpdate(float dt) override;
 
-	bool m_insideScreen;
+	void SpawnAsteroids();
+	void SpawnSingleAsteroid();
+	void DeleteDestroyedAsteroids();
+
+	DonerECS::CPrefabManager* m_prefabManager;
+
+	std::string m_prefabName;
+	float m_checkCadence;
+	int m_maxAsteroids;
+	sf::Vector2f m_spawnArea;
+
+
+	std::vector<DonerECS::CHandle> m_activeAsteroids;
+	sf::Vector2f m_spawnAreaInPixels;
+	sf::FloatRect m_screenBoundaries;
+	float m_accTime;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
+DECS_DEFINE_REFLECTION_DATA(CCompAsteroidSpawner,
+	DECS_ADD_NAMED_VAR_INFO(m_checkCadence, "check_cadence"),
+	DECS_ADD_NAMED_VAR_INFO(m_prefabName, "prefab_name"),
+	DECS_ADD_NAMED_VAR_INFO(m_maxAsteroids, "max_asteroids"),
+	DECS_ADD_NAMED_VAR_INFO(m_spawnArea, "spawn_area")
 )

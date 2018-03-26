@@ -30,6 +30,7 @@
 #include <components/CCompShoot.h>
 #include <components/CCompShipMovement.h>
 #include <components/CCompBoundariesChecker.h>
+#include <components/CCompAsteroidSpawner.h>
 
 #include <donerecs/entity/CEntityParser.h>
 
@@ -63,4 +64,5 @@ void CApplication::RegisterComponentsProject()
 	ADD_COMPONENT_FACTORY("shoot", CCompShoot, 2);
 	ADD_COMPONENT_FACTORY("ship_movement", CCompShipMovement, 2);
 	ADD_COMPONENT_FACTORY("boundaries_checker", CCompBoundariesChecker, 4096);
+	ADD_COMPONENT_FACTORY("asteroid_spawner", CCompAsteroidSpawner, 2);
 }

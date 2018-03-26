@@ -59,8 +59,6 @@ public:
 
 	void RegisterMessages() override;
 
-	bool IsDirty() const { return m_dirty; }
-
 	void OnSetPosition(CommonMessages::SSetPosition& message);
 	void OnSetRotation(CommonMessages::SSetRotation& message);
 	void OnSetScale(CommonMessages::SSetScale& message);
@@ -73,7 +71,6 @@ public:
 
 private:
 	void DoInit() override;
-	void DoUpdate(float dt) override;
 
 	void UpdateWorldTransform();
 	void UpdateWorldTransform(const sf::Transformable& localTransform);
@@ -83,8 +80,6 @@ private:
 	sf::Vector2f m_scale;
 
 	sf::Transform m_worldTransform;
-
-	bool m_dirty;
 };
 
 DECS_DEFINE_REFLECTION_DATA(CCompTransform,

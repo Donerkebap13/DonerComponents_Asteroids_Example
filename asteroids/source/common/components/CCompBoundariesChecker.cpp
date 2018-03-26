@@ -36,6 +36,7 @@ DECS_COMPONENT_REFLECTION_IMPL(CCompBoundariesChecker)
 CCompBoundariesChecker::CCompBoundariesChecker()
 	: m_screenBoundaries(CRenderer::Get()->GetScreenBoundaries())
 	, m_destroyParent(false)
+	, m_insideScreen(false)
 {
 }
 
@@ -48,14 +49,21 @@ void CCompBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& m
 {
 	if (!m_screenBoundaries.intersects(message.m_AABB))
 	{
-		if (m_destroyParent)
+		if (m_insideScreen)
 		{
-			DonerECS::CEntity* owner = m_owner;
-			owner->GetParent().Destroy();
+			if (m_destroyParent)
+			{
+				DonerECS::CEntity* owner = m_owner;
+				owner->GetParent().Destroy();
+			}
+			else
+			{
+				m_owner.Destroy();
+			}
 		}
-		else
-		{
-			m_owner.Destroy();
-		}
+	}
+	else
+	{
+		m_insideScreen = true;
 	}
 }

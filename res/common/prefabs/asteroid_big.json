@@ -2,6 +2,7 @@
 	"type": "prefab",
 	"root": {
 		"name": "asteroid_big",
+		"tags": ["Asteroid"],
 		"components": [{
 			"name": "transform",
 			"position": [0.0,
@@ -35,6 +36,9 @@
 				{
 					"name": "spin",
 					"velocity": 30.0
+				},
+				{
+					"name": "collider"
 				}
 			]
 		}

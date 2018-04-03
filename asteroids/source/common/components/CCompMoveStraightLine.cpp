@@ -31,8 +31,6 @@
 
 #include <donerecs/entity/CEntity.h>
 
-#include <cmath>
-
 DECS_COMPONENT_REFLECTION_IMPL(CCompMoveStraightLine)
 
 CCompMoveStraightLine::CCompMoveStraightLine()

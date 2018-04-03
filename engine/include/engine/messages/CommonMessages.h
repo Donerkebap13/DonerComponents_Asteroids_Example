@@ -129,4 +129,12 @@ namespace CommonMessages
 		sf::FloatRect m_AABB;
 		DonerECS::CHandle m_entity;
 	};
+
+	struct SCollision
+	{
+		SCollision(DonerECS::CHandle other)
+			: m_other(other)
+		{}
+		DonerECS::CHandle m_other;
+	};
 }

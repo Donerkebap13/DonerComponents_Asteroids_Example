@@ -29,6 +29,7 @@
 
 struct SApplicationWindowParameters;
 class CRenderer;
+class CCollisionManager;
 
 namespace DonerECS
 {
@@ -70,6 +71,7 @@ protected:
 	CRenderer* m_renderer;
 	Input::CKeyboard* m_keyboard;
 	Input::CMouse* m_mouse;
+	CCollisionManager* m_collisionManager;
 
 	DonerECS::CDonerECSSystems* m_donerECSSystems;
 };

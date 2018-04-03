@@ -25,35 +25,24 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <components/CCompShipMovement.h>
+#include <engine/components/CCompCollider.h>
 #include <engine/messages/CommonMessages.h>
-#include <engine/Defines.h>
-#include <engine/input/CKeyboard.h>
-#include <engine/input/CMouse.h>
+#include <engine/physics/CCollisionManager.h>
 
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
-
-CCompShipMovement::CCompShipMovement()
-	: m_velocity(0.f)
-{}
-
-void CCompShipMovement::DoUpdate(float dt)
+CCompCollider::CCompCollider()
+	: m_collisionManager(*CCollisionManager::Get())
 {
-	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
+}
 
-	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(static_cast<float>(mousePos.x),
-													   static_cast<float>(mousePos.y)));
-	m_owner.SendMessage(lookAtMessage);
+void CCompCollider::RegisterMessages()
+{
+	RegisterMessage(&CCompCollider::OnAABBUpdated);
+	RegisterMessage(&CCompCollider::OnCollision);
+}
 
-	float dist = m_velocity * dt;
-	if (Input::CKeyboard::Get()->IsPressed(Input::KK_S))
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(-dist));
-	}
-	else
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
-	}
+void CCompCollider::OnAABBUpdated(const CommonMessages::SAABBUpdated& message)
+{
+	m_collisionManager.AddCollisionBox(m_owner, message.m_AABB);
 }

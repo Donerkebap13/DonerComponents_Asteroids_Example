@@ -31,11 +31,13 @@
 #include <engine/input/CMouse.h>
 #include <engine/graphics/CRenderer.h>
 #include <engine/utils/CRandomGenerator.h>
+#include <engine/physics/CCollisionManager.h>
 
 #include <donerecs/CDonerECSSystems.h>
 
 #include <engine/components/CCompTransform.h>
 #include <engine/components/CCompSprite.h>
+#include <engine/components/CCompCollider.h>
 
 #include <SFML/Config.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -48,6 +50,7 @@ CApplicationBase::CApplicationBase()
 	, m_keyboard(nullptr)
 	, m_mouse(nullptr)
 	, m_donerECSSystems(nullptr)
+	, m_collisionManager(nullptr)
 {
 }
 
@@ -83,6 +86,7 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 	}
 
 	CRandomGenerator::CreateInstance();
+	m_collisionManager = CCollisionManager::CreateInstance();
 
 	m_donerECSSystems = DonerECS::CDonerECSSystems::CreateInstance();
 	m_donerECSSystems->Init();
@@ -124,6 +128,8 @@ void CApplicationBase::Update()
 		m_keyboard->Update(elapsed);
 		m_mouse->Update(elapsed);
 
+		m_collisionManager->Update();
+
 		m_donerECSSystems->Update(elapsed);
 
 		UpdateProject(elapsed);
@@ -138,6 +144,7 @@ void CApplicationBase::Destroy()
 
 	DonerECS::CDonerECSSystems::DestroyInstance();
 
+	CCollisionManager::DestroyInstance();
 	CRandomGenerator::DestroyInstance();
 
 	CRenderer::DestroyInstance();
@@ -149,6 +156,7 @@ void CApplicationBase::RegisterComponents()
 {
 	ADD_COMPONENT_FACTORY("transform", CCompTransform, 2048);
 	ADD_COMPONENT_FACTORY("sprite", CCompSprite, 2048);
+	ADD_COMPONENT_FACTORY("collider", CCompCollider, 2048);
 	
 	RegisterComponentsProject();
 }

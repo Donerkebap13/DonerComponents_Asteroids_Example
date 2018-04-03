@@ -34,8 +34,6 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 
-#include <cmath>
-
 DECS_COMPONENT_REFLECTION_IMPL(CCompTransform)
 
 CCompTransform::CCompTransform()

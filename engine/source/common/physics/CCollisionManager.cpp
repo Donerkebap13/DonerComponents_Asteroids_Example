@@ -25,35 +25,33 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <components/CCompShipMovement.h>
+#include <engine/physics/CCollisionManager.h>
 #include <engine/messages/CommonMessages.h>
-#include <engine/Defines.h>
-#include <engine/input/CKeyboard.h>
-#include <engine/input/CMouse.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <cassert>
+#include <chrono>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
-
-CCompShipMovement::CCompShipMovement()
-	: m_velocity(0.f)
-{}
-
-void CCompShipMovement::DoUpdate(float dt)
+void CCollisionManager::Update()
 {
-	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
-
-	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(static_cast<float>(mousePos.x),
-													   static_cast<float>(mousePos.y)));
-	m_owner.SendMessage(lookAtMessage);
-
-	float dist = m_velocity * dt;
-	if (Input::CKeyboard::Get()->IsPressed(Input::KK_S))
+	for (auto& candidate : m_collisionBoxes)
 	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(-dist));
+		for (auto& other : m_collisionBoxes)
+		{
+			if (candidate.first != other.first)
+			{
+				if (candidate.second.intersects(other.second))
+				{
+					CommonMessages::SCollision message(other.first);
+					DonerECS::CHandle& handle = const_cast<DonerECS::CHandle&>(candidate.first);
+					handle.SendMessage(message);
+				}
+			}
+		}
 	}
-	else
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
-	}
+	m_collisionBoxes.clear();
+}
+
+void CCollisionManager::AddCollisionBox(DonerECS::CHandle handle, const sf::FloatRect& collisionBox)
+{
+	m_collisionBoxes[handle] = collisionBox;
 }

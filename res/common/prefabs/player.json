@@ -2,6 +2,7 @@
 	"type": "prefab",
 	"root": {
 		"name": "player",
+		"tags": ["Player"],
 		"components": [
 			{
 				"name": "transform"

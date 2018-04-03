@@ -25,35 +25,21 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <components/CCompShipMovement.h>
+#include <components/CCompBulletCollider.h>
 #include <engine/messages/CommonMessages.h>
-#include <engine/Defines.h>
-#include <engine/input/CKeyboard.h>
-#include <engine/input/CMouse.h>
 
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
-
-CCompShipMovement::CCompShipMovement()
-	: m_velocity(0.f)
-{}
-
-void CCompShipMovement::DoUpdate(float dt)
+void CCompBulletCollider::OnCollision(CommonMessages::SCollision& message)
 {
-	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
-
-	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(static_cast<float>(mousePos.x),
-													   static_cast<float>(mousePos.y)));
-	m_owner.SendMessage(lookAtMessage);
-
-	float dist = m_velocity * dt;
-	if (Input::CKeyboard::Get()->IsPressed(Input::KK_S))
+	DonerECS::CEntity* other = message.m_other;
+	if (other)
 	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(-dist));
-	}
-	else
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
+		DonerECS::CEntity* otherParent = other->GetParent();
+		if (otherParent && otherParent->HasTags(DonerECS::CStrID("Asteroid")))
+		{
+			otherParent->Destroy();
+			m_owner.Destroy();
+		}
 	}
 }

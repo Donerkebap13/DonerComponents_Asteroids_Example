@@ -25,35 +25,22 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <components/CCompShipMovement.h>
-#include <engine/messages/CommonMessages.h>
-#include <engine/Defines.h>
-#include <engine/input/CKeyboard.h>
-#include <engine/input/CMouse.h>
+#pragma once
 
+#include <donerecs/common/CSingleton.h>
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
+#include <SFML/Graphics/Rect.hpp>
 
-CCompShipMovement::CCompShipMovement()
-	: m_velocity(0.f)
-{}
+#include <unordered_map>
 
-void CCompShipMovement::DoUpdate(float dt)
+class CCollisionManager : public DonerECS::CSingleton<CCollisionManager>
 {
-	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
+public:
+	void Update();
 
-	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(static_cast<float>(mousePos.x),
-													   static_cast<float>(mousePos.y)));
-	m_owner.SendMessage(lookAtMessage);
+	void AddCollisionBox(DonerECS::CHandle handle, const sf::FloatRect& collisionBox);
 
-	float dist = m_velocity * dt;
-	if (Input::CKeyboard::Get()->IsPressed(Input::KK_S))
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(-dist));
-	}
-	else
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
-	}
-}
+private:
+	std::unordered_map<DonerECS::CHandle, sf::FloatRect> m_collisionBoxes;
+};

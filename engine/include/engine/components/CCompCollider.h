@@ -25,35 +25,30 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <components/CCompShipMovement.h>
-#include <engine/messages/CommonMessages.h>
-#include <engine/Defines.h>
-#include <engine/input/CKeyboard.h>
-#include <engine/input/CMouse.h>
+#pragma once
 
-#include <donerecs/entity/CEntity.h>
+#include <donerecs/component/CComponent.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
+#include <SFML/Graphics/Rect.hpp>
 
-CCompShipMovement::CCompShipMovement()
-	: m_velocity(0.f)
-{}
+class CCollisionManager;
 
-void CCompShipMovement::DoUpdate(float dt)
+namespace CommonMessages
 {
-	sf::Vector2i mousePos = Input::CMouse::Get()->GetMouseScreenPosition();
-
-	CommonMessages::SLookAt lookAtMessage(sf::Vector2f(static_cast<float>(mousePos.x),
-													   static_cast<float>(mousePos.y)));
-	m_owner.SendMessage(lookAtMessage);
-
-	float dist = m_velocity * dt;
-	if (Input::CKeyboard::Get()->IsPressed(Input::KK_S))
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(-dist));
-	}
-	else
-	{
-		m_owner.SendMessage(CommonMessages::SMoveTransform(dist));
-	}
+	struct SAABBUpdated;
+	struct SCollision;
 }
+
+class CCompCollider : public DonerECS::CComponent
+{
+public:
+	CCompCollider();
+
+	void RegisterMessages() override;
+
+	void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
+	virtual void OnCollision(CommonMessages::SCollision& /*message*/) {}
+
+private:
+	CCollisionManager& m_collisionManager;
+};

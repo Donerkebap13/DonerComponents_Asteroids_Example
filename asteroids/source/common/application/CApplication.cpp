@@ -33,10 +33,12 @@
 #include <components/CCompPlayerBoundariesChecker.h>
 #include <components/CCompAsteroidSpawner.h>
 #include <components/CCompSpin.h>
-
-#include <donerecs/entity/CEntityParser.h>
-
 #include <components/CCompShipMovement.h>
+#include <components/CCompBulletCollider.h>
+
+#include <donerecs/CDonerECSSystems.h>
+#include <donerecs/entity/CEntityParser.h>
+#include <donerecs/tags/CTagsManager.h>
 
 CApplication::CApplication()
 {
@@ -50,6 +52,8 @@ bool CApplication::InitProject()
 {
 	DonerECS::CEntityParser parser;
 	
+	DonerECS::CDonerECSSystems::Get()->GetTagsManager()->ParseTagsFromFile("res/common/tags.json");
+
 	// Prefabs
 	parser.ParsePrefabFromFile("res/common/prefabs/player.json");
 	parser.ParsePrefabFromFile("res/common/prefabs/bullet.json");
@@ -69,4 +73,5 @@ void CApplication::RegisterComponentsProject()
 	ADD_COMPONENT_FACTORY("player_boundaries_checker", CCompPlayerBoundariesChecker, 2);
 	ADD_COMPONENT_FACTORY("asteroid_spawner", CCompAsteroidSpawner, 2);
 	ADD_COMPONENT_FACTORY("spin", CCompSpin, 2048);
+	ADD_COMPONENT_FACTORY("bullet_collider", CCompBulletCollider, 2048);
 }

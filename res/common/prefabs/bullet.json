@@ -2,6 +2,7 @@
 	"type": "prefab",
 	"root": {
 		"name": "bullet",
+		"tags": ["Bullet"],
 		"components": [{
 			"name": "transform"
 		},
@@ -17,6 +18,10 @@
 		},
 		{
 			"name": "boundaries_checker"
-		}]
+		},
+		{
+			"name": "bullet_collider"
+		}
+		]
 	}
 }

@@ -28,9 +28,10 @@
 #include <engine/utils/CRandomGenerator.h>
 
 #include <cassert>
+#include <chrono>
 
 CRandomGenerator::CRandomGenerator() 
-	: m_randomNumberGenerator(std::_Random_device())
+	: m_randomNumberGenerator(std::chrono::system_clock::now().time_since_epoch().count())
 {}
 
 CRandomGenerator::CRandomGenerator(std::uint_least32_t seed)

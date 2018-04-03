@@ -25,36 +25,36 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <components/CCompPlayerBoundariesChecker.h>
+#include <engine/messages/CommonMessages.h>
 
-#include <engine/reflection/EngineReflection.h>
+#include <donerecs/entity/CEntity.h>
 
-#include <donerecs/component/CComponent.h>
-
-#include <SFML/Graphics/Rect.hpp>
-
-namespace CommonMessages
+void CCompPlayerBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& message)
 {
-	struct SAABBUpdated;
+	if (!m_screenBoundaries.intersects(message.m_AABB))
+	{
+		sf::Vector2f position;
+		m_owner.SendMessage(CommonMessages::SGetPosition(position));
+
+		if (position.x <= 0)
+		{
+			position.x = m_screenBoundaries.width - (message.m_AABB.width * 0.25f);
+		}
+		else if (position.x >= m_screenBoundaries.width)
+		{
+			position.x = (message.m_AABB.width * 0.25f);
+		}
+
+		if (position.y <= 0)
+		{
+			position.y = m_screenBoundaries.height - (message.m_AABB.height * 0.25f);
+		}
+		else if (position.y >= m_screenBoundaries.height)
+		{
+			position.y = (message.m_AABB.height * 0.25f);
+		}
+
+		m_owner.SendMessage(CommonMessages::SSetPosition(position));
+	}
 }
-
-class CCompBoundariesChecker : public DonerECS::CComponent
-{
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
-public:
-	CCompBoundariesChecker();
-
-	void RegisterMessages() override;
-
-	virtual void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
-
-protected:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
-
-	bool m_insideScreen;
-};
-
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
-)

@@ -31,30 +31,22 @@
 
 #include <donerecs/component/CComponent.h>
 
-#include <SFML/Graphics/Rect.hpp>
-
-namespace CommonMessages
+class CCompSpin : public DonerECS::CComponent
 {
-	struct SAABBUpdated;
-}
-
-class CCompBoundariesChecker : public DonerECS::CComponent
-{
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompSpin)
 public:
-	CCompBoundariesChecker();
+	CCompSpin();
 
-	void RegisterMessages() override;
+private:
+	void DoInit() override;
+	void DoUpdate(float dt) override;
 
-	virtual void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
+	float m_velocity;
 
-protected:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
-
-	bool m_insideScreen;
+	float m_accRotation;
+	float m_direction;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
+DECS_DEFINE_REFLECTION_DATA(CCompSpin,
+	DECS_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
 )

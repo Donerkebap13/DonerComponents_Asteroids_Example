@@ -80,6 +80,14 @@ namespace CommonMessages
 		sf::Vector2f m_position;
 	};
 
+	struct SGetPosition
+	{
+		SGetPosition(sf::Vector2f& position)
+			: m_position(position)
+		{}
+		sf::Vector2f& m_position;
+	};
+
 	struct SSetRotation
 	{
 		SSetRotation(float angle)

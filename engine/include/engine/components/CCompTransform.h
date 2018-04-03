@@ -44,6 +44,7 @@ namespace CommonMessages
 	struct SGetTransformable;
 	struct SSetTransformable;
 	struct SSetPosition;
+	struct SGetPosition;
 	struct SSetRotation;
 	struct SSetScale;
 	struct SParentTransformUpdated;
@@ -60,6 +61,7 @@ public:
 	void RegisterMessages() override;
 
 	void OnSetPosition(CommonMessages::SSetPosition& message);
+	void OnGetPosition(CommonMessages::SGetPosition& message);
 	void OnSetRotation(CommonMessages::SSetRotation& message);
 	void OnSetScale(CommonMessages::SSetScale& message);
 	void OnGetTransform(CommonMessages::SGetTransform& message);

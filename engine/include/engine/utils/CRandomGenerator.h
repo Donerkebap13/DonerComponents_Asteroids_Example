@@ -27,34 +27,22 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <donerecs/common/CSingleton.h>
 
-#include <donerecs/component/CComponent.h>
+#include <random>
 
-#include <SFML/Graphics/Rect.hpp>
-
-namespace CommonMessages
+class CRandomGenerator : public DonerECS::CSingleton<CRandomGenerator>
 {
-	struct SAABBUpdated;
-}
-
-class CCompBoundariesChecker : public DonerECS::CComponent
-{
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
 public:
-	CCompBoundariesChecker();
+	CRandomGenerator();
+	CRandomGenerator(std::uint_least32_t seed);
 
-	void RegisterMessages() override;
+	int Next();
+	int Next(int maxValue);
+	int Next(int minValue, int maxValue);
+	float NextFloat();
+	float NextFloat(float minValue, float maxValue);
 
-	virtual void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
-
-protected:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
-
-	bool m_insideScreen;
+private:
+	std::default_random_engine m_randomNumberGenerator;
 };
-
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
-)

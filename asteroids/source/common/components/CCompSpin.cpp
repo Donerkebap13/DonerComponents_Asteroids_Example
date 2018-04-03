@@ -25,36 +25,36 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <components/CCompSpin.h>
+#include <engine/messages/CommonMessages.h>
+#include <engine/Defines.h>
+#include <engine/input/CKeyboard.h>
+#include <engine/input/CMouse.h>
+#include <engine/utils/CRandomGenerator.h>
 
-#include <engine/reflection/EngineReflection.h>
+#include <donerecs/entity/CEntity.h>
 
-#include <donerecs/component/CComponent.h>
+#include <cmath>
 
-#include <SFML/Graphics/Rect.hpp>
+DECS_COMPONENT_REFLECTION_IMPL(CCompSpin)
 
-namespace CommonMessages
+CCompSpin::CCompSpin()
+	: m_velocity(0.f)
+	, m_accRotation(0.f)
+	, m_direction(0.f)
 {
-	struct SAABBUpdated;
 }
 
-class CCompBoundariesChecker : public DonerECS::CComponent
+void CCompSpin::DoInit()
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
-public:
-	CCompBoundariesChecker();
+	m_velocity *= CRandomGenerator::Get()->NextFloat(80.f, 120.f) / 100.f;
+	m_direction = CRandomGenerator::Get()->Next(0, 1) > 0 ? 1.f : -1.f;
+}
 
-	void RegisterMessages() override;
+void CCompSpin::DoUpdate(float dt)
+{
+	m_accRotation += (m_velocity * dt) * m_direction;
 
-	virtual void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
-
-protected:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
-
-	bool m_insideScreen;
-};
-
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
-)
+	CommonMessages::SSetRotation message(m_accRotation);
+	m_owner.SendMessage(message);
+}

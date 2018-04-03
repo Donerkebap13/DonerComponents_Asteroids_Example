@@ -29,6 +29,7 @@
 #include <engine/graphics/CRenderer.h>
 #include <engine/messages/CommonMessages.h>
 #include <engine/input/CKeyboard.h>
+#include <engine/utils/CRandomGenerator.h>
 
 #include <donerecs/CDonerECSSystems.h>
 #include <donerecs/entity/CEntity.h>
@@ -77,26 +78,21 @@ void CCompAsteroidSpawner::SpawnAsteroids()
 	}
 }
 
-float randInRange(float min, float max)
-{
-	return min + (int)(rand() / (double)(RAND_MAX + 1) * (max - min + 1));
-}
-
 void CCompAsteroidSpawner::SpawnSingleAsteroid()
 {
 	static constexpr float dummySpawnSize = 5.f;
 	static constexpr float dummySpawnMargin = 20.f;
 
 	sf::FloatRect spawn;
-	spawn.left = randInRange(-dummySpawnMargin, m_screenBoundaries.width + dummySpawnMargin);
-	spawn.top = randInRange(-dummySpawnMargin, m_screenBoundaries.height + dummySpawnMargin);
+	spawn.left = CRandomGenerator::Get()->NextFloat(-dummySpawnMargin, m_screenBoundaries.width + dummySpawnMargin);
+	spawn.top = CRandomGenerator::Get()->NextFloat(-dummySpawnMargin, m_screenBoundaries.height + dummySpawnMargin);
 	spawn.width = dummySpawnSize;
 	spawn.height = dummySpawnSize;
 
 	while (m_screenBoundaries.intersects(spawn))
 	{
-		spawn.left = randInRange(-dummySpawnMargin, m_screenBoundaries.width + dummySpawnMargin);
-		spawn.top = randInRange(-dummySpawnMargin, m_screenBoundaries.height + dummySpawnMargin);
+		spawn.left = CRandomGenerator::Get()->NextFloat(-dummySpawnMargin, m_screenBoundaries.width + dummySpawnMargin);
+		spawn.top = CRandomGenerator::Get()->NextFloat(-dummySpawnMargin, m_screenBoundaries.height + dummySpawnMargin);
 	}
 
 	DonerECS::CEntity* asteroidEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID(m_prefabName.c_str()));
@@ -105,8 +101,8 @@ void CCompAsteroidSpawner::SpawnSingleAsteroid()
 		asteroidEntity->Init();
 
 		sf::Vector2f lookAt;
-		lookAt.x = randInRange(m_screenBoundaries.width * 0.5f - m_spawnAreaInPixels.x, m_screenBoundaries.width * 0.5f + m_spawnAreaInPixels.x);
-		lookAt.y = randInRange(m_screenBoundaries.height* 0.5f - m_spawnAreaInPixels.y, m_screenBoundaries.height* 0.5f + m_spawnAreaInPixels.y);
+		lookAt.x = CRandomGenerator::Get()->NextFloat(m_screenBoundaries.width * 0.5f - m_spawnAreaInPixels.x, m_screenBoundaries.width * 0.5f + m_spawnAreaInPixels.x);
+		lookAt.y = CRandomGenerator::Get()->NextFloat(m_screenBoundaries.height * 0.5f - m_spawnAreaInPixels.y, m_screenBoundaries.height * 0.5f + m_spawnAreaInPixels.y);
 
 		asteroidEntity->SendMessage(CommonMessages::SSetPosition(sf::Vector2f(spawn.left, spawn.top)));
 		asteroidEntity->SendMessage(CommonMessages::SLookAt(lookAt));

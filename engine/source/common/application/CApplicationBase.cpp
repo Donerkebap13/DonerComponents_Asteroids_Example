@@ -30,6 +30,7 @@
 #include <engine/input/CKeyboard.h>
 #include <engine/input/CMouse.h>
 #include <engine/graphics/CRenderer.h>
+#include <engine/utils/CRandomGenerator.h>
 
 #include <donerecs/CDonerECSSystems.h>
 
@@ -80,6 +81,8 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 	{
 		return false;
 	}
+
+	CRandomGenerator::CreateInstance();
 
 	m_donerECSSystems = DonerECS::CDonerECSSystems::CreateInstance();
 	m_donerECSSystems->Init();
@@ -134,6 +137,8 @@ void CApplicationBase::Destroy()
 	DestroyProject( );
 
 	DonerECS::CDonerECSSystems::DestroyInstance();
+
+	CRandomGenerator::DestroyInstance();
 
 	CRenderer::DestroyInstance();
 	Input::CKeyboard::DestroyInstance();

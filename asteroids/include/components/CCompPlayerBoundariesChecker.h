@@ -27,34 +27,11 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
 
-#include <donerecs/component/CComponent.h>
+#include <components/CCompBoundariesChecker.h>
 
-#include <SFML/Graphics/Rect.hpp>
-
-namespace CommonMessages
+class CCompPlayerBoundariesChecker : public CCompBoundariesChecker
 {
-	struct SAABBUpdated;
-}
-
-class CCompBoundariesChecker : public DonerECS::CComponent
-{
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
 public:
-	CCompBoundariesChecker();
-
-	void RegisterMessages() override;
-
-	virtual void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
-
-protected:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
-
-	bool m_insideScreen;
+	void OnAABBUpdated(const CommonMessages::SAABBUpdated& message) override;
 };
-
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
-)

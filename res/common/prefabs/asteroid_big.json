@@ -31,6 +31,10 @@
 				{
 					"name": "boundaries_checker",
 					"destroy_parent": true
+				},
+				{
+					"name": "spin",
+					"velocity": 30.0
 				}
 			]
 		}

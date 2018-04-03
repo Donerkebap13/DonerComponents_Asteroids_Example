@@ -18,6 +18,9 @@
 			{
 				"name": "ship_movement",
 				"velocity": 100
+			},
+			{
+				"name" : "player_boundaries_checker"
 			}
 		]
 	}

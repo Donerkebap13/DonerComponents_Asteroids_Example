@@ -48,6 +48,7 @@ CCompTransform::CCompTransform()
 void CCompTransform::RegisterMessages()
 {
 	RegisterMessage(&CCompTransform::OnSetPosition);
+	RegisterMessage(&CCompTransform::OnGetPosition);
 	RegisterMessage(&CCompTransform::OnSetRotation);
 	RegisterMessage(&CCompTransform::OnSetScale);
 	RegisterMessage(&CCompTransform::OnGetTransform);
@@ -67,6 +68,22 @@ void CCompTransform::OnSetPosition(CommonMessages::SSetPosition& message)
 {
 	m_position = message.m_position;
 	UpdateWorldTransform();
+}
+
+void CCompTransform::OnGetPosition(CommonMessages::SGetPosition& message)
+{
+	sf::Transform* parent_transform = nullptr;
+	CommonMessages::SGetTransform getTransformMessage(&parent_transform);
+	DonerECS::CHandle parent = static_cast<DonerECS::CEntity*>(m_owner)->GetParent();
+	parent.SendMessage(getTransformMessage);
+	if (parent_transform)
+	{
+		message.m_position = parent_transform->transformPoint(m_position);
+	}
+	else
+	{
+		message.m_position = m_position;
+	}
 }
 
 void CCompTransform::OnSetRotation(CommonMessages::SSetRotation& message)

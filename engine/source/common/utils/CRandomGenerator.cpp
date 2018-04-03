@@ -25,36 +25,45 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#include <engine/utils/CRandomGenerator.h>
 
-#include <engine/reflection/EngineReflection.h>
+#include <cassert>
 
-#include <donerecs/component/CComponent.h>
+CRandomGenerator::CRandomGenerator() 
+	: m_randomNumberGenerator(std::_Random_device())
+{}
 
-#include <SFML/Graphics/Rect.hpp>
+CRandomGenerator::CRandomGenerator(std::uint_least32_t seed)
+	: m_randomNumberGenerator(seed)
+{}
 
-namespace CommonMessages
+int CRandomGenerator::Next()
 {
-	struct SAABBUpdated;
+	return Next(0, std::numeric_limits<int>::max());
 }
 
-class CCompBoundariesChecker : public DonerECS::CComponent
+int CRandomGenerator::Next(int maxValue)
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
-public:
-	CCompBoundariesChecker();
+	return Next(0, maxValue);
+}
 
-	void RegisterMessages() override;
+int CRandomGenerator::Next(int minValue, int maxValue)
+{
+	assert(maxValue > minValue);
 
-	virtual void OnAABBUpdated(const CommonMessages::SAABBUpdated& message);
+	std::uniform_int_distribution<int> distribution(minValue, maxValue);
+	return distribution(m_randomNumberGenerator);
+}
 
-protected:
-	sf::FloatRect m_screenBoundaries;
-	bool m_destroyParent;
+float CRandomGenerator::NextFloat()
+{
+	return NextFloat(0.0, 1.0);
+}
 
-	bool m_insideScreen;
-};
+float CRandomGenerator::NextFloat(float minValue, float maxValue)
+{
+	assert(maxValue > minValue);
 
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
-)
+	std::uniform_real_distribution<float> distribution(minValue, maxValue);
+	return distribution(m_randomNumberGenerator);
+}

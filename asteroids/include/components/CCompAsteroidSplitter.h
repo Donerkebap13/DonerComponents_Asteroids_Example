@@ -25,51 +25,38 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <engine/utils/CRandomGenerator.h>
+#pragma once
 
-#include <cassert>
-#include <chrono>
+#include <messages/AsteroidsMessages.h>
+#include <engine/reflection/EngineReflection.h>
 
-CRandomGenerator::CRandomGenerator() 
-	: m_randomNumberGenerator(static_cast<int>(std::chrono::system_clock::now().time_since_epoch().count()))
-{}
+#include <donerecs/component/CComponent.h>
 
-CRandomGenerator::CRandomGenerator(std::uint_least32_t seed)
-	: m_randomNumberGenerator(seed)
-{}
-
-int CRandomGenerator::Next()
+namespace DonerECS
 {
-	return Next(0, std::numeric_limits<int>::max());
+	class CPrefabManager;
 }
 
-int CRandomGenerator::Next(int maxValue)
+class CCompAsteroidSplitter : public DonerECS::CComponent
 {
-	return Next(0, maxValue);
-}
+	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompAsteroidSplitter)
+public:
+	CCompAsteroidSplitter();
 
-int CRandomGenerator::Next(int minValue, int maxValue)
-{
-	assert(maxValue > minValue);
+	void RegisterMessages() override;
 
-	std::uniform_int_distribution<int> distribution(minValue, maxValue);
-	return distribution(m_randomNumberGenerator);
-}
+private:
+	void SpawnSingleAsteroid(float angle);
 
-float CRandomGenerator::NextFloat()
-{
-	return NextFloat(0.0, 1.0);
-}
+	void OnSplitAsteroid(const AsteroidsMessages::SSplitAsteroid& message);
 
-float CRandomGenerator::NextFloat(float maxValue)
-{
-	return NextFloat(0.0, maxValue);
-}
+	DonerECS::CPrefabManager* m_prefabManager;
 
-float CRandomGenerator::NextFloat(float minValue, float maxValue)
-{
-	assert(maxValue > minValue);
+	std::string m_prefabName;
+	int m_maxAsteroids;
+};
 
-	std::uniform_real_distribution<float> distribution(minValue, maxValue);
-	return distribution(m_randomNumberGenerator);
-}
+DECS_DEFINE_REFLECTION_DATA(CCompAsteroidSplitter,
+	DECS_ADD_NAMED_VAR_INFO(m_prefabName, "prefab_name"),
+	DECS_ADD_NAMED_VAR_INFO(m_maxAsteroids, "max_asteroids")
+)

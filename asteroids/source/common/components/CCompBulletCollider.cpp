@@ -25,6 +25,7 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <messages/AsteroidsMessages.h>
 #include <components/CCompBulletCollider.h>
 #include <engine/messages/CommonMessages.h>
 
@@ -38,6 +39,7 @@ void CCompBulletCollider::OnCollision(CommonMessages::SCollision& message)
 		DonerECS::CEntity* otherParent = other->GetParent();
 		if (otherParent && otherParent->HasTags(DonerECS::CStrID("Asteroid")))
 		{
+			otherParent->SendMessage(AsteroidsMessages::SSplitAsteroid());
 			otherParent->Destroy();
 			m_owner.Destroy();
 		}

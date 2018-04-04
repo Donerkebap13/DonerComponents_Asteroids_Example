@@ -98,8 +98,6 @@ void CCompAsteroidSpawner::SpawnSingleAsteroid()
 	DonerECS::CEntity* asteroidEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID(m_prefabName.c_str()));
 	if (asteroidEntity)
 	{
-		asteroidEntity->Init();
-
 		sf::Vector2f lookAt;
 		lookAt.x = CRandomGenerator::Get()->NextFloat(m_screenBoundaries.width * 0.5f - m_spawnAreaInPixels.x, m_screenBoundaries.width * 0.5f + m_spawnAreaInPixels.x);
 		lookAt.y = CRandomGenerator::Get()->NextFloat(m_screenBoundaries.height * 0.5f - m_spawnAreaInPixels.y, m_screenBoundaries.height * 0.5f + m_spawnAreaInPixels.y);
@@ -108,8 +106,6 @@ void CCompAsteroidSpawner::SpawnSingleAsteroid()
 		asteroidEntity->SendMessage(CommonMessages::SLookAt(lookAt));
 		
 		m_activeAsteroids.emplace_back(asteroidEntity);
-
-		asteroidEntity->Activate();
 	}
 }
 

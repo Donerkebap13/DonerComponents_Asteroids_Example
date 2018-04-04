@@ -25,51 +25,47 @@
 //
 ////////////////////////////////////////////////////////////
 
+#include <components/CCompAsteroidSplitter.h>
+#include <engine/messages/CommonMessages.h>
 #include <engine/utils/CRandomGenerator.h>
 
-#include <cassert>
-#include <chrono>
+#include <donerecs/CDonerECSSystems.h>
+#include <donerecs/entity/CEntity.h>
+#include <donerecs/entity/CPrefabManager.h>
 
-CRandomGenerator::CRandomGenerator() 
-	: m_randomNumberGenerator(static_cast<int>(std::chrono::system_clock::now().time_since_epoch().count()))
-{}
+DECS_COMPONENT_REFLECTION_IMPL(CCompAsteroidSplitter)
 
-CRandomGenerator::CRandomGenerator(std::uint_least32_t seed)
-	: m_randomNumberGenerator(seed)
-{}
-
-int CRandomGenerator::Next()
+CCompAsteroidSplitter::CCompAsteroidSplitter()
+	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())
+	, m_maxAsteroids(4)
 {
-	return Next(0, std::numeric_limits<int>::max());
 }
 
-int CRandomGenerator::Next(int maxValue)
+void CCompAsteroidSplitter::RegisterMessages()
 {
-	return Next(0, maxValue);
+	RegisterMessage(&CCompAsteroidSplitter::OnSplitAsteroid);
 }
 
-int CRandomGenerator::Next(int minValue, int maxValue)
+void CCompAsteroidSplitter::OnSplitAsteroid(const AsteroidsMessages::SSplitAsteroid& message)
 {
-	assert(maxValue > minValue);
-
-	std::uniform_int_distribution<int> distribution(minValue, maxValue);
-	return distribution(m_randomNumberGenerator);
+	float anglePerAsteroid = 360.f / m_maxAsteroids;
+	float randomInitialAngle = CRandomGenerator::Get()->NextFloat(360.f);
+	for (int i = 0; i < m_maxAsteroids; ++i)
+	{
+		float angle = (i * anglePerAsteroid) + randomInitialAngle;
+		SpawnSingleAsteroid(angle);
+	}
 }
 
-float CRandomGenerator::NextFloat()
+void CCompAsteroidSplitter::SpawnSingleAsteroid(float angle)
 {
-	return NextFloat(0.0, 1.0);
-}
+	DonerECS::CEntity* asteroidEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID(m_prefabName.c_str()));
+	if (asteroidEntity)
+	{
+		sf::Vector2f position;
+		m_owner.SendMessage(CommonMessages::SGetPosition(position));
 
-float CRandomGenerator::NextFloat(float maxValue)
-{
-	return NextFloat(0.0, maxValue);
-}
-
-float CRandomGenerator::NextFloat(float minValue, float maxValue)
-{
-	assert(maxValue > minValue);
-
-	std::uniform_real_distribution<float> distribution(minValue, maxValue);
-	return distribution(m_randomNumberGenerator);
+		asteroidEntity->SendMessage(CommonMessages::SSetPosition(position));
+		asteroidEntity->SendMessage(CommonMessages::SSetRotation(angle));
+	}
 }

@@ -25,51 +25,11 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <engine/utils/CRandomGenerator.h>
+#pragma once
 
-#include <cassert>
-#include <chrono>
-
-CRandomGenerator::CRandomGenerator() 
-	: m_randomNumberGenerator(static_cast<int>(std::chrono::system_clock::now().time_since_epoch().count()))
-{}
-
-CRandomGenerator::CRandomGenerator(std::uint_least32_t seed)
-	: m_randomNumberGenerator(seed)
-{}
-
-int CRandomGenerator::Next()
+namespace AsteroidsMessages
 {
-	return Next(0, std::numeric_limits<int>::max());
-}
-
-int CRandomGenerator::Next(int maxValue)
-{
-	return Next(0, maxValue);
-}
-
-int CRandomGenerator::Next(int minValue, int maxValue)
-{
-	assert(maxValue > minValue);
-
-	std::uniform_int_distribution<int> distribution(minValue, maxValue);
-	return distribution(m_randomNumberGenerator);
-}
-
-float CRandomGenerator::NextFloat()
-{
-	return NextFloat(0.0, 1.0);
-}
-
-float CRandomGenerator::NextFloat(float maxValue)
-{
-	return NextFloat(0.0, maxValue);
-}
-
-float CRandomGenerator::NextFloat(float minValue, float maxValue)
-{
-	assert(maxValue > minValue);
-
-	std::uniform_real_distribution<float> distribution(minValue, maxValue);
-	return distribution(m_randomNumberGenerator);
+	struct SSplitAsteroid
+	{
+	};
 }

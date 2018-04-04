@@ -35,6 +35,7 @@
 #include <components/CCompSpin.h>
 #include <components/CCompShipMovement.h>
 #include <components/CCompBulletCollider.h>
+#include <components/CCompAsteroidSplitter.h>
 
 #include <donerecs/CDonerECSSystems.h>
 #include <donerecs/entity/CEntityParser.h>
@@ -58,6 +59,8 @@ bool CApplication::InitProject()
 	parser.ParsePrefabFromFile("res/common/prefabs/player.json");
 	parser.ParsePrefabFromFile("res/common/prefabs/bullet.json");
 	parser.ParsePrefabFromFile("res/common/prefabs/asteroid_big.json");
+	parser.ParsePrefabFromFile("res/common/prefabs/asteroid_med.json");
+	parser.ParsePrefabFromFile("res/common/prefabs/asteroid_small.json");
 	
 	parser.ParseSceneFromFile("res/common/scenes/main.json");
 
@@ -74,4 +77,5 @@ void CApplication::RegisterComponentsProject()
 	ADD_COMPONENT_FACTORY("asteroid_spawner", CCompAsteroidSpawner, 2);
 	ADD_COMPONENT_FACTORY("spin", CCompSpin, 2048);
 	ADD_COMPONENT_FACTORY("bullet_collider", CCompBulletCollider, 2048);
+	ADD_COMPONENT_FACTORY("asteroid_splitter", CCompAsteroidSplitter, 2048);
 }

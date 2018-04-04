@@ -4,16 +4,16 @@
 		"name": "asteroid_big",
 		"tags": ["Asteroid"],
 		"components": [{
-			"name": "transform",
-			"position": [0.0,
-			0.0],
-			"rotation": 0,
-			"scale": [1.0,
-			1.0]
+			"name": "transform"
 		},
 		{
 			"name": "move_straight_line",
 			"velocity": 100.0
+		},
+		{
+			"name": "asteroid_splitter",
+			"prefab_name": "asteroid_med",
+			"max_asteroids": 4
 		}
 		],
 		"children":[

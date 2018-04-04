@@ -1,0 +1,31 @@
+{
+	"type": "prefab",
+	"root": {
+		"name": "asteroid_small",
+		"prefab": "asteroid_big",
+		"components": [
+		{
+			"name": "asteroid_splitter",
+			"initially_active": false
+		}
+		],
+		"children":[
+		{
+			"name": "sprite",
+			"components": [
+				{
+					"name": "transform"
+				},
+				{
+					"name": "sprite",
+					"texture": "res/common/textures/asteroid_small.png"
+				},
+				{
+					"name": "spin",
+					"velocity": 40.0
+				}
+			]
+		}
+		]
+	}
+}

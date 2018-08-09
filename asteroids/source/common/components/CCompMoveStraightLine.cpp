@@ -31,7 +31,7 @@
 
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompMoveStraightLine)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompMoveStraightLine)
 
 CCompMoveStraightLine::CCompMoveStraightLine()
 	: m_velocity(0.f)

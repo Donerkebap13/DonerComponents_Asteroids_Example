@@ -33,7 +33,7 @@
 #include <donerecs/entity/CEntity.h>
 #include <donerecs/entity/CPrefabManager.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompAsteroidSplitter)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompAsteroidSplitter)
 
 CCompAsteroidSplitter::CCompAsteroidSplitter()
 	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())

@@ -37,7 +37,7 @@
 
 #include <algorithm>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompAsteroidSpawner)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompAsteroidSpawner)
 
 CCompAsteroidSpawner::CCompAsteroidSpawner()
 	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())

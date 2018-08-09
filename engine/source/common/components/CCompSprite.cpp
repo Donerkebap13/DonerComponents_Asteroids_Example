@@ -38,7 +38,7 @@ namespace CCompSpriteInternal
 	const char* const MISSING_TEXTURE_PATH = "res/common/textures/missing.png";
 }
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompSprite)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompSprite)
 
 CCompSprite::CCompSprite()
 	: m_texturePath(CCompSpriteInternal::MISSING_TEXTURE_PATH)

@@ -27,16 +27,16 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
 class CCompSpin : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompSpin)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompSpin)
 public:
 	CCompSpin();
-
+	
 private:
 	void DoInit() override;
 	void DoUpdate(float dt) override;
@@ -47,6 +47,6 @@ private:
 	float m_direction;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompSpin,
-	DECS_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
+DONER_DEFINE_REFLECTION_DATA(CCompSpin,
+	DONER_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
 )

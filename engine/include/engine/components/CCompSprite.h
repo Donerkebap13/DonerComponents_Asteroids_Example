@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
@@ -42,7 +42,7 @@ namespace CommonMessages
 
 class CCompSprite : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompSprite)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompSprite)
 public:
 	CCompSprite();
 	CCompSprite(CCompSprite& rhs);
@@ -64,9 +64,9 @@ private:
 	bool m_smooth;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompSprite,
-	DECS_ADD_NAMED_VAR_INFO(m_texturePath, "texture"),
-	DECS_ADD_NAMED_VAR_INFO(m_tintColor, "tint"),
-	DECS_ADD_NAMED_VAR_INFO(m_origin, "origin"),
-	DECS_ADD_NAMED_VAR_INFO(m_smooth, "smooth")
+DONER_DEFINE_REFLECTION_DATA(CCompSprite,
+	DONER_ADD_NAMED_VAR_INFO(m_texturePath, "texture"),
+	DONER_ADD_NAMED_VAR_INFO(m_tintColor, "tint"),
+	DONER_ADD_NAMED_VAR_INFO(m_origin, "origin"),
+	DONER_ADD_NAMED_VAR_INFO(m_smooth, "smooth")
 )

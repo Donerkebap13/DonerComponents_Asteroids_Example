@@ -31,7 +31,7 @@
 
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompBoundariesChecker)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompBoundariesChecker)
 
 CCompBoundariesChecker::CCompBoundariesChecker()
 	: m_screenBoundaries(CRenderer::Get()->GetScreenBoundaries())

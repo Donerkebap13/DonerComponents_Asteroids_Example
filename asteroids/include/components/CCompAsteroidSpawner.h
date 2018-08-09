@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
@@ -42,7 +42,7 @@ namespace DonerECS
 
 class CCompAsteroidSpawner : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompAsteroidSpawner)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompAsteroidSpawner)
 public:
 	CCompAsteroidSpawner();
 
@@ -68,9 +68,9 @@ private:
 	float m_accTime;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompAsteroidSpawner,
-	DECS_ADD_NAMED_VAR_INFO(m_checkCadence, "check_cadence"),
-	DECS_ADD_NAMED_VAR_INFO(m_prefabName, "prefab_name"),
-	DECS_ADD_NAMED_VAR_INFO(m_maxAsteroids, "max_asteroids"),
-	DECS_ADD_NAMED_VAR_INFO(m_spawnArea, "spawn_area")
+DONER_DEFINE_REFLECTION_DATA(CCompAsteroidSpawner,
+	DONER_ADD_NAMED_VAR_INFO(m_checkCadence, "check_cadence"),
+	DONER_ADD_NAMED_VAR_INFO(m_prefabName, "prefab_name"),
+	DONER_ADD_NAMED_VAR_INFO(m_maxAsteroids, "max_asteroids"),
+	DONER_ADD_NAMED_VAR_INFO(m_spawnArea, "spawn_area")
 )

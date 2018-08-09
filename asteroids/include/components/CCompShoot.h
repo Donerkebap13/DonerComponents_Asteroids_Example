@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
@@ -38,10 +38,10 @@ namespace DonerECS
 
 class CCompShoot : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShoot)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompShoot)
 public:
 	CCompShoot();
-
+	
 private:
 	void DoUpdate(float dt) override;
 
@@ -51,6 +51,6 @@ private:
 	float m_accTime;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompShoot,
-	DECS_ADD_NAMED_VAR_INFO(m_cadence, "cadence")
+DONER_DEFINE_REFLECTION_DATA(CCompShoot,
+	DONER_ADD_NAMED_VAR_INFO(m_cadence, "cadence")
 )

@@ -34,7 +34,7 @@
 
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompSpin)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompSpin)
 
 CCompSpin::CCompSpin()
 	: m_velocity(0.f)

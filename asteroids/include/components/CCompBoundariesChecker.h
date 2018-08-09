@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
@@ -40,7 +40,7 @@ namespace CommonMessages
 
 class CCompBoundariesChecker : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompBoundariesChecker)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompBoundariesChecker)
 public:
 	CCompBoundariesChecker();
 
@@ -55,6 +55,6 @@ protected:
 	bool m_insideScreen;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
-	DECS_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
+DONER_DEFINE_REFLECTION_DATA(CCompBoundariesChecker,
+	DONER_ADD_NAMED_VAR_INFO(m_destroyParent, "destroy_parent")
 )

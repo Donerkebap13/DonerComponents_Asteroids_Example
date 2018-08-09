@@ -33,7 +33,7 @@
 #include <donerecs/entity/CEntity.h>
 #include <donerecs/entity/CPrefabManager.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShoot)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompShoot)
 
 CCompShoot::CCompShoot()
 	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())

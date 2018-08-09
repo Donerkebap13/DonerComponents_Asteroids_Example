@@ -27,22 +27,22 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
 class CCompMoveStraightLine : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompMoveStraightLine)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompMoveStraightLine)
 public:
 	CCompMoveStraightLine();
-
+	
 private:
 	void DoUpdate(float dt) override;
 
 	float m_velocity;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompMoveStraightLine,
-	DECS_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
+DONER_DEFINE_REFLECTION_DATA(CCompMoveStraightLine,
+	DONER_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
 )

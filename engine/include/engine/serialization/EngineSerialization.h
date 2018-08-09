@@ -25,28 +25,49 @@
 //
 ////////////////////////////////////////////////////////////
 
-#include <engine/reflection/EngineReflection.h>
+#pragma once
 
-namespace DonerECS
+#include <donerserializer/DonerDeserialize.h>
+
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#define DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(class_name)                     \
+  DONER_DECLARE_OBJECT_AS_REFLECTABLE(class_name)                              \
+public:                                                                        \
+  void ParseAtts(const rapidjson::Value &atts) override;
+
+#define DECS_SERIALIZABLE_COMPONENT_IMPL(base_class)                           \
+void base_class::ParseAtts(const rapidjson::Value &atts)					   \
+{                                                                              \
+    DONER_DESERIALIZE_OBJECT_FROM_JSON(*this, atts)							   \
+}
+
+namespace DonerSerializer
 {
-	namespace Reflection
+	template <>
+	class CDeserializationResolver::CDeserializationResolverType<sf::Color>
 	{
-		std::experimental::optional<sf::Color> STypeReflector<sf::Color>::DeserializeFromJson(const DonerECS::Json::Value& att)
+	public:
+		static void Apply(sf::Color& value, const rapidjson::Value& att)
 		{
-			if (att.isArray())
+			if (att.IsArray())
 			{
-				return std::experimental::make_optional<sf::Color>(sf::Color(att[0].asInt(), att[1].asInt(), att[2].asInt(), att[3].asInt()));
+				value = sf::Color(att[0].GetInt(), att[1].GetInt(), att[2].GetInt(), att[3].GetInt());
 			}
-			return std::experimental::nullopt;
 		}
+	};
 
-		std::experimental::optional<sf::Vector2f> STypeReflector<sf::Vector2f>::DeserializeFromJson(const DonerECS::Json::Value& att)
+	template <>
+	class CDeserializationResolver::CDeserializationResolverType<sf::Vector2f>
+	{
+	public:
+		static void Apply(sf::Vector2f& value, const rapidjson::Value& att)
 		{
-			if (att.isArray())
+			if (att.IsArray())
 			{
-				return std::experimental::make_optional<sf::Vector2f>(sf::Vector2f(att[0].asFloat(), att[1].asFloat()));
+				value = sf::Vector2f(att[0].GetFloat(), att[1].GetFloat());
 			}
-			return std::experimental::nullopt;
 		}
-	}
+	};
 }

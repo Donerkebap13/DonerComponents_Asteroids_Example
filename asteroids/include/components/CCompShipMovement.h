@@ -27,22 +27,22 @@
 
 #pragma once
 
-#include <engine/reflection/EngineReflection.h>
+#include <engine/serialization/EngineSerialization.h>
 
 #include <donerecs/component/CComponent.h>
 
 class CCompShipMovement : public DonerECS::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_REFLECTABLE(CCompShipMovement)
+	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompShipMovement)
 public:
 	CCompShipMovement();
-
+	
 private:
 	void DoUpdate(float dt) override;
 
 	float m_velocity;
 };
 
-DECS_DEFINE_REFLECTION_DATA(CCompShipMovement,
-	DECS_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
+DONER_DEFINE_REFLECTION_DATA(CCompShipMovement,
+	DONER_ADD_NAMED_VAR_INFO(m_velocity, "velocity")
 )

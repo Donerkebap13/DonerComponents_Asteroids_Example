@@ -33,7 +33,7 @@
 
 #include <donerecs/entity/CEntity.h>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompShipMovement)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompShipMovement)
 
 CCompShipMovement::CCompShipMovement()
 	: m_velocity(0.f)

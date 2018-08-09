@@ -34,7 +34,7 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 
-DECS_COMPONENT_REFLECTION_IMPL(CCompTransform)
+DECS_SERIALIZABLE_COMPONENT_IMPL(CCompTransform)
 
 CCompTransform::CCompTransform()
 	: m_position(0.f, 0.f)

@@ -32,17 +32,6 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#define DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(class_name)                     \
-  DONER_DECLARE_OBJECT_AS_REFLECTABLE(class_name)                              \
-public:                                                                        \
-  void ParseAtts(const rapidjson::Value &atts) override;
-
-#define DECS_SERIALIZABLE_COMPONENT_IMPL(base_class)                           \
-void base_class::ParseAtts(const rapidjson::Value &atts)					   \
-{                                                                              \
-    DONER_DESERIALIZE_OBJECT_FROM_JSON(*this, atts)							   \
-}
-
 namespace DonerSerializer
 {
 	template <>

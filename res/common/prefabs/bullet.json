@@ -1,5 +1,4 @@
 {
-	"type": "prefab",
 	"root": {
 		"name": "bullet",
 		"tags": ["Bullet"],

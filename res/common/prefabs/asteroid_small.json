@@ -1,5 +1,4 @@
 {
-	"type": "prefab",
 	"root": {
 		"name": "asteroid_small",
 		"prefab": "asteroid_big",

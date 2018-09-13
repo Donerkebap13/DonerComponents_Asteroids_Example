@@ -1,7 +1,7 @@
 # DonerECS_Asteroids_Example
 Asteroids clone based on **[DonerECS](https://github.com/Donerkebap13/DonerECS)** (Doner Entity Component System) and **[SFML](https://github.com/SFML/SFML)** libraries.
 
-![DonerECS Asteroids](DonerECS_Asteroids_Example/sample_img.jpg)
+![DonerECS Asteroids](sample_img.jpg)
 
 ## Downloading
 

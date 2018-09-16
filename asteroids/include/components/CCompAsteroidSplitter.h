@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,16 +30,16 @@
 #include <messages/AsteroidsMessages.h>
 #include <engine/serialization/EngineSerialization.h>
 
-#include <donerecs/component/CComponent.h>
+#include <donercomponents/component/CComponent.h>
 
-namespace DonerECS
+namespace DonerComponents
 {
 	class CPrefabManager;
 }
 
-class CCompAsteroidSplitter : public DonerECS::CComponent
+class CCompAsteroidSplitter : public DonerComponents::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompAsteroidSplitter)
+	DONER_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompAsteroidSplitter)
 public:
 	CCompAsteroidSplitter();
 
@@ -50,7 +50,7 @@ private:
 
 	void OnSplitAsteroid(const AsteroidsMessages::SSplitAsteroid& message);
 
-	DonerECS::CPrefabManager* m_prefabManager;
+	DonerComponents::CPrefabManager* m_prefabManager;
 
 	std::string m_prefabName;
 	int m_maxAsteroids;

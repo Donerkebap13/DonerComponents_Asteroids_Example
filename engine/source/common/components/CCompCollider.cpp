@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,7 +29,7 @@
 #include <engine/messages/CommonMessages.h>
 #include <engine/physics/CCollisionManager.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
 CCompCollider::CCompCollider()
 	: m_collisionManager(*CCollisionManager::Get())

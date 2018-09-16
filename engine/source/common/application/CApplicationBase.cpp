@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,7 +33,7 @@
 #include <engine/utils/CRandomGenerator.h>
 #include <engine/physics/CCollisionManager.h>
 
-#include <donerecs/CDonerECSSystems.h>
+#include <donercomponents/CDonerComponentsSystems.h>
 
 #include <engine/components/CCompTransform.h>
 #include <engine/components/CCompSprite.h>
@@ -88,7 +88,7 @@ bool CApplicationBase::Init(const SApplicationWindowParameters& applicationWindo
 	CRandomGenerator::CreateInstance();
 	m_collisionManager = CCollisionManager::CreateInstance();
 
-	m_donerECSSystems = DonerECS::CDonerECSSystems::CreateInstance();
+	m_donerECSSystems = DonerComponents::CDonerComponentsSystems::CreateInstance();
 	m_donerECSSystems->Init();
 
 	RegisterComponents();
@@ -142,7 +142,7 @@ void CApplicationBase::Destroy()
 {
 	DestroyProject( );
 
-	DonerECS::CDonerECSSystems::DestroyInstance();
+	DonerComponents::CDonerComponentsSystems::DestroyInstance();
 
 	CCollisionManager::DestroyInstance();
 	CRandomGenerator::DestroyInstance();

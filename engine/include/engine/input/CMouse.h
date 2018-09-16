@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,7 +28,7 @@
 #pragma once
 
 #include <engine/input/EMouseButton.h>
-#include <donerecs/common/CSingleton.h>
+#include <donercomponents/common/CSingleton.h>
 
 namespace sf
 {
@@ -37,7 +37,7 @@ namespace sf
 
 namespace Input
 {
-	class CMouse : public DonerECS::CSingleton<CMouse>
+	class CMouse : public DonerComponents::CSingleton<CMouse>
 	{
 	public:
 		CMouse();

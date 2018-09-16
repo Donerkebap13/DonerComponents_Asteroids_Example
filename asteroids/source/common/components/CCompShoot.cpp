@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,14 +29,14 @@
 #include <engine/messages/CommonMessages.h>
 #include <engine/input/CKeyboard.h>
 
-#include <donerecs/CDonerECSSystems.h>
-#include <donerecs/entity/CEntity.h>
-#include <donerecs/entity/CPrefabManager.h>
+#include <donercomponents/CDonerComponentsSystems.h>
+#include <donercomponents/gameObject/CGameObject.h>
+#include <donercomponents/gameObject/CPrefabManager.h>
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompShoot)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompShoot)
 
 CCompShoot::CCompShoot()
-	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())
+	: m_prefabManager(DonerComponents::CDonerComponentsSystems::Get()->GetPrefabManager())
 	, m_cadence(0.f)
 	, m_accTime(0.f)
 {
@@ -49,15 +49,15 @@ void CCompShoot::DoUpdate(float dt)
 	{
 		m_accTime = m_cadence;
 
-		DonerECS::CEntity* bulletEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID("bullet"));
-		if (bulletEntity)
+		DonerComponents::CGameObject* bulletGameObject = m_prefabManager->ClonePrefab(DonerComponents::CStrID("bullet"));
+		if (bulletGameObject)
 		{
 			sf::Transformable transformable;
 			CommonMessages::SGetTransformable getTransformableMessage(transformable);
 			m_owner.SendMessage(getTransformableMessage);
 
-			bulletEntity->SendMessage(CommonMessages::SSetPosition(transformable.getPosition()));
-			bulletEntity->SendMessage(CommonMessages::SSetRotation(transformable.getRotation()));
+			bulletGameObject->SendMessage(CommonMessages::SSetPosition(transformable.getPosition()));
+			bulletGameObject->SendMessage(CommonMessages::SSetRotation(transformable.getRotation()));
 		}
 	}
 }

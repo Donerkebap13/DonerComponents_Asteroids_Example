@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,7 +29,7 @@
 #include <engine/graphics/CRenderer.h>
 #include <engine/components/CCompSprite.h>
 
-#include <donerecs/component/CComponentFactoryManager.h>
+#include <donercomponents/component/CComponentFactoryManager.h>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 

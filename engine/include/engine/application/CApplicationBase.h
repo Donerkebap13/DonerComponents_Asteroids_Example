@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,9 +31,9 @@ struct SApplicationWindowParameters;
 class CRenderer;
 class CCollisionManager;
 
-namespace DonerECS
+namespace DonerComponents
 {
-	class CDonerECSSystems;
+	class CDonerComponentsSystems;
 }
 
 namespace Input
@@ -73,5 +73,5 @@ protected:
 	Input::CMouse* m_mouse;
 	CCollisionManager* m_collisionManager;
 
-	DonerECS::CDonerECSSystems* m_donerECSSystems;
+	DonerComponents::CDonerComponentsSystems* m_donerECSSystems;
 };

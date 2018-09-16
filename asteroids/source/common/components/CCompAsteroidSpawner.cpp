@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,16 +31,16 @@
 #include <engine/input/CKeyboard.h>
 #include <engine/utils/CRandomGenerator.h>
 
-#include <donerecs/CDonerECSSystems.h>
-#include <donerecs/entity/CEntity.h>
-#include <donerecs/entity/CPrefabManager.h>
+#include <donercomponents/CDonerComponentsSystems.h>
+#include <donercomponents/gameObject/CGameObject.h>
+#include <donercomponents/gameObject/CPrefabManager.h>
 
 #include <algorithm>
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompAsteroidSpawner)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompAsteroidSpawner)
 
 CCompAsteroidSpawner::CCompAsteroidSpawner()
-	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())
+	: m_prefabManager(DonerComponents::CDonerComponentsSystems::Get()->GetPrefabManager())
 	, m_checkCadence(1.f)
 	, m_maxAsteroids(10)
 	, m_spawnArea(0.5f, 0.5f)
@@ -95,17 +95,17 @@ void CCompAsteroidSpawner::SpawnSingleAsteroid()
 		spawn.top = CRandomGenerator::Get()->NextFloat(-dummySpawnMargin, m_screenBoundaries.height + dummySpawnMargin);
 	}
 
-	DonerECS::CEntity* asteroidEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID(m_prefabName.c_str()));
-	if (asteroidEntity)
+	DonerComponents::CGameObject* asteroidGameObject = m_prefabManager->ClonePrefab(DonerComponents::CStrID(m_prefabName.c_str()));
+	if (asteroidGameObject)
 	{
 		sf::Vector2f lookAt;
 		lookAt.x = CRandomGenerator::Get()->NextFloat(m_screenBoundaries.width * 0.5f - m_spawnAreaInPixels.x, m_screenBoundaries.width * 0.5f + m_spawnAreaInPixels.x);
 		lookAt.y = CRandomGenerator::Get()->NextFloat(m_screenBoundaries.height * 0.5f - m_spawnAreaInPixels.y, m_screenBoundaries.height * 0.5f + m_spawnAreaInPixels.y);
 
-		asteroidEntity->SendMessage(CommonMessages::SSetPosition(sf::Vector2f(spawn.left, spawn.top)));
-		asteroidEntity->SendMessage(CommonMessages::SLookAt(lookAt));
+		asteroidGameObject->SendMessage(CommonMessages::SSetPosition(sf::Vector2f(spawn.left, spawn.top)));
+		asteroidGameObject->SendMessage(CommonMessages::SLookAt(lookAt));
 		
-		m_activeAsteroids.emplace_back(asteroidEntity);
+		m_activeAsteroids.emplace_back(asteroidGameObject);
 	}
 }
 
@@ -113,7 +113,7 @@ void CCompAsteroidSpawner::DeleteDestroyedAsteroids()
 {
 	m_activeAsteroids.erase(std::remove_if(
 		m_activeAsteroids.begin(), m_activeAsteroids.end()
-		, [](DonerECS::CHandle& handle) { return !static_cast<bool>(handle); })
+		, [](DonerComponents::CHandle& handle) { return !static_cast<bool>(handle); })
 		, m_activeAsteroids.end()
 	);
 }

@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include <donerecs/common/CFactory.h>
+#include <donercomponents/common/CFactory.h>
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Transform.hpp>
@@ -37,7 +37,7 @@ namespace sf
 	class RenderWindow;
 }
 
-class CSpriteInfo : public DonerECS::CECSElement
+class CSpriteInfo : public DonerComponents::CFactoryElement
 {
 public:
 	sf::Sprite m_sprite;
@@ -45,7 +45,7 @@ public:
 	sf::FloatRect m_AABB;
 };
 
-class CSpriteFactory : public DonerECS::CFactory<CSpriteInfo>
+class CSpriteFactory : public DonerComponents::CFactory<CSpriteInfo>
 {
 public:
 	CSpriteFactory(int nElements);

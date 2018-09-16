@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include <donerecs/component/CComponent.h>
+#include <donercomponents/component/CComponent.h>
 
 #include <SFML/Graphics/Rect.hpp>
 
@@ -39,7 +39,7 @@ namespace CommonMessages
 	struct SCollision;
 }
 
-class CCompCollider : public DonerECS::CComponent
+class CCompCollider : public DonerComponents::CComponent
 {
 public:
 	CCompCollider();

@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,7 +29,7 @@
 
 #include <engine/serialization/EngineSerialization.h>
 
-#include <donerecs/component/CComponent.h>
+#include <donercomponents/component/CComponent.h>
 
 #include <SFML/Graphics/Rect.hpp>
 
@@ -38,9 +38,9 @@ namespace CommonMessages
 	struct SAABBUpdated;
 }
 
-class CCompBoundariesChecker : public DonerECS::CComponent
+class CCompBoundariesChecker : public DonerComponents::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompBoundariesChecker)
+	DONER_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompBoundariesChecker)
 public:
 	CCompBoundariesChecker();
 

@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,9 +29,9 @@
 #include <engine/messages/CommonMessages.h>
 #include <engine/Defines.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompMoveStraightLine)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompMoveStraightLine)
 
 CCompMoveStraightLine::CCompMoveStraightLine()
 	: m_velocity(0.f)

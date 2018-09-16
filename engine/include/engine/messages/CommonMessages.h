@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -122,19 +122,19 @@ namespace CommonMessages
 
 	struct SAABBUpdated
 	{
-		SAABBUpdated(const sf::FloatRect& AABB, DonerECS::CHandle entity)
+		SAABBUpdated(const sf::FloatRect& AABB, DonerComponents::CHandle gameObject)
 			: m_AABB(AABB)
-			, m_entity(entity)
+			, m_gameObject(gameObject)
 		{}
 		sf::FloatRect m_AABB;
-		DonerECS::CHandle m_entity;
+		DonerComponents::CHandle m_gameObject;
 	};
 
 	struct SCollision
 	{
-		SCollision(DonerECS::CHandle other)
+		SCollision(DonerComponents::CHandle other)
 			: m_other(other)
 		{}
-		DonerECS::CHandle m_other;
+		DonerComponents::CHandle m_other;
 	};
 }

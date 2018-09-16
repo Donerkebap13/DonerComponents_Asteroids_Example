@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,9 +29,9 @@
 #include <engine/graphics/CRenderer.h>
 #include <engine/messages/CommonMessages.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompBoundariesChecker)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompBoundariesChecker)
 
 CCompBoundariesChecker::CCompBoundariesChecker()
 	: m_screenBoundaries(CRenderer::Get()->GetScreenBoundaries())
@@ -53,7 +53,7 @@ void CCompBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& m
 		{
 			if (m_destroyParent)
 			{
-				DonerECS::CEntity* owner = m_owner;
+				DonerComponents::CGameObject* owner = m_owner;
 				owner->GetParent().Destroy();
 			}
 			else

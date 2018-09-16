@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,7 +28,7 @@
 #pragma once
 
 #include <engine/input/EKeyboardKey.h>
-#include <donerecs/common/CSingleton.h>
+#include <donercomponents/common/CSingleton.h>
 
 #include <SFML/Window/Keyboard.hpp>
 
@@ -36,7 +36,7 @@
 
 namespace Input
 {
-	class CKeyboard : public DonerECS::CSingleton<CKeyboard>
+	class CKeyboard : public DonerComponents::CSingleton<CKeyboard>
 	{
 	public:
 		CKeyboard();

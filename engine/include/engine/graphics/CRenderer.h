@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,7 +29,7 @@
 
 #include <engine/graphics/CSpriteFactory.h>
 
-#include <donerecs/common/CSingleton.h>
+#include <donercomponents/common/CSingleton.h>
 
 #include <SFML/Graphics/Rect.hpp>
 
@@ -40,7 +40,7 @@ namespace sf
 	class RenderWindow;
 }
 
-class CRenderer : public DonerECS::CSingleton<CRenderer>
+class CRenderer : public DonerComponents::CSingleton<CRenderer>
 {
 public:
 	CRenderer();

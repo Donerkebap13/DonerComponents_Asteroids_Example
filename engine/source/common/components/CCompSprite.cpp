@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,7 +29,7 @@
 #include <engine/graphics/CRenderer.h>
 #include <engine/messages/CommonMessages.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -38,7 +38,7 @@ namespace CCompSpriteInternal
 	const char* const MISSING_TEXTURE_PATH = "res/common/textures/missing.png";
 }
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompSprite)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompSprite)
 
 CCompSprite::CCompSprite()
 	: m_texturePath(CCompSpriteInternal::MISSING_TEXTURE_PATH)

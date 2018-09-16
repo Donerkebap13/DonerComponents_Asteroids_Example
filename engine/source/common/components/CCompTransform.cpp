@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,11 +30,11 @@
 #include <engine/utils/VectorUtils.h>
 #include <engine/Defines.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
 #include <SFML/Graphics/Transformable.hpp>
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompTransform)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompTransform)
 
 CCompTransform::CCompTransform()
 	: m_position(0.f, 0.f)
@@ -72,7 +72,7 @@ void CCompTransform::OnGetPosition(CommonMessages::SGetPosition& message)
 {
 	sf::Transform* parent_transform = nullptr;
 	CommonMessages::SGetTransform getTransformMessage(&parent_transform);
-	DonerECS::CHandle parent = static_cast<DonerECS::CEntity*>(m_owner)->GetParent();
+	DonerComponents::CHandle parent = static_cast<DonerComponents::CGameObject*>(m_owner)->GetParent();
 	parent.SendMessage(getTransformMessage);
 	if (parent_transform)
 	{
@@ -160,7 +160,7 @@ void CCompTransform::UpdateWorldTransform(const sf::Transformable& localTransfor
 {
 	sf::Transform* parent_transform = nullptr;
 	CommonMessages::SGetTransform getTransformMessage(&parent_transform);
-	DonerECS::CHandle parent = static_cast<DonerECS::CEntity*>(m_owner)->GetParent();
+	DonerComponents::CHandle parent = static_cast<DonerComponents::CGameObject*>(m_owner)->GetParent();
 	parent.SendMessage(getTransformMessage);
 	if (parent_transform)
 	{

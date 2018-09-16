@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,9 +37,9 @@
 #include <components/CCompBulletCollider.h>
 #include <components/CCompAsteroidSplitter.h>
 
-#include <donerecs/CDonerECSSystems.h>
-#include <donerecs/entity/CEntityParser.h>
-#include <donerecs/tags/CTagsManager.h>
+#include <donercomponents/CDonerComponentsSystems.h>
+#include <donercomponents/gameObject/CGameObjectParser.h>
+#include <donercomponents/tags/CTagsManager.h>
 
 CApplication::CApplication()
 {
@@ -51,9 +51,9 @@ CApplication::~CApplication()
 
 bool CApplication::InitProject() 
 {
-	DonerECS::CEntityParser parser;
+	DonerComponents::CGameObjectParser parser;
 	
-	DonerECS::CDonerECSSystems::Get()->GetTagsManager()->ParseTagsFromFile("res/common/tags.json");
+	DonerComponents::CDonerComponentsSystems::Get()->GetTagsManager()->ParseTagsFromFile("res/common/tags.json");
 
 	// Prefabs
 	parser.ParsePrefabFromFile("res/common/prefabs/player.json");

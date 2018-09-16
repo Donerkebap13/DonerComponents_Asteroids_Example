@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/DonerECS/cmake/utils.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/DonerComponents/cmake/utils.cmake)
 
-set(project_name "DonerECS_Asteroids")
+set(project_name "DonerComponents_Asteroids")
 
 project("${project_name}")
 
@@ -19,7 +19,7 @@ add_executable("${project_name}" ${header_files} ${source_files})
 target_include_directories ("${project_name}" PUBLIC "include")
 target_include_directories ("${project_name}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../engine/include")
 
-target_link_libraries("${project_name}" "Engine" "DonerECS")
+target_link_libraries("${project_name}" "Engine" "DonerComponents")
 
 set_target_properties("${project_name}" PROPERTIES LINKER_LANGUAGE CXX)
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT "${project_name}")

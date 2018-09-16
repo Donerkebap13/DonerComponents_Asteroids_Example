@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,11 +27,11 @@
 
 #pragma once
 
-#include <donerecs/common/CSingleton.h>
+#include <donercomponents/common/CSingleton.h>
 
 #include <random>
 
-class CRandomGenerator : public DonerECS::CSingleton<CRandomGenerator>
+class CRandomGenerator : public DonerComponents::CSingleton<CRandomGenerator>
 {
 public:
 	CRandomGenerator();

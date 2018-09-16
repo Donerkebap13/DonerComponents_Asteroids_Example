@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,23 +29,23 @@
 
 #include <engine/serialization/EngineSerialization.h>
 
-#include <donerecs/component/CComponent.h>
+#include <donercomponents/component/CComponent.h>
 
-namespace DonerECS
+namespace DonerComponents
 {
 	class CPrefabManager;
 }
 
-class CCompShoot : public DonerECS::CComponent
+class CCompShoot : public DonerComponents::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompShoot)
+	DONER_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompShoot)
 public:
 	CCompShoot();
 	
 private:
 	void DoUpdate(float dt) override;
 
-	DonerECS::CPrefabManager* m_prefabManager;
+	DonerComponents::CPrefabManager* m_prefabManager;
 
 	float m_cadence;
 	float m_accTime;

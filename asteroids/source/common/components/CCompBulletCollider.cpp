@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,15 +29,15 @@
 #include <components/CCompBulletCollider.h>
 #include <engine/messages/CommonMessages.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
 void CCompBulletCollider::OnCollision(CommonMessages::SCollision& message)
 {
-	DonerECS::CEntity* other = message.m_other;
+	DonerComponents::CGameObject* other = message.m_other;
 	if (other)
 	{
-		DonerECS::CEntity* otherParent = other->GetParent();
-		if (otherParent && otherParent->HasTags(DonerECS::CStrID("Asteroid")))
+		DonerComponents::CGameObject* otherParent = other->GetParent();
+		if (otherParent && otherParent->HasTags(DonerComponents::CStrID("Asteroid")))
 		{
 			otherParent->SendMessage(AsteroidsMessages::SSplitAsteroid());
 			otherParent->Destroy();

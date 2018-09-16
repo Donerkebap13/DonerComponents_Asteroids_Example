@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,7 +28,7 @@
 #include <components/CCompPlayerBoundariesChecker.h>
 #include <engine/messages/CommonMessages.h>
 
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
 void CCompPlayerBoundariesChecker::OnAABBUpdated(const CommonMessages::SAABBUpdated& message)
 {

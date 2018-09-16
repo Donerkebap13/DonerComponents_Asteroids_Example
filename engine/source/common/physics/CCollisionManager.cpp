@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -42,7 +42,7 @@ void CCollisionManager::Update()
 				if (candidate.second.intersects(other.second))
 				{
 					CommonMessages::SCollision message(other.first);
-					DonerECS::CHandle& handle = const_cast<DonerECS::CHandle&>(candidate.first);
+					DonerComponents::CHandle& handle = const_cast<DonerComponents::CHandle&>(candidate.first);
 					handle.SendMessage(message);
 				}
 			}
@@ -51,7 +51,7 @@ void CCollisionManager::Update()
 	m_collisionBoxes.clear();
 }
 
-void CCollisionManager::AddCollisionBox(DonerECS::CHandle handle, const sf::FloatRect& collisionBox)
+void CCollisionManager::AddCollisionBox(DonerComponents::CHandle handle, const sf::FloatRect& collisionBox)
 {
 	m_collisionBoxes[handle] = collisionBox;
 }

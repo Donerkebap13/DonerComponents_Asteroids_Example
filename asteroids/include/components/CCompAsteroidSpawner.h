@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,20 +29,20 @@
 
 #include <engine/serialization/EngineSerialization.h>
 
-#include <donerecs/component/CComponent.h>
+#include <donercomponents/component/CComponent.h>
 
 #include <SFML/Graphics/Rect.hpp>
 
 #include <vector>
 
-namespace DonerECS
+namespace DonerComponents
 {
 	class CPrefabManager;
 }
 
-class CCompAsteroidSpawner : public DonerECS::CComponent
+class CCompAsteroidSpawner : public DonerComponents::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompAsteroidSpawner)
+	DONER_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompAsteroidSpawner)
 public:
 	CCompAsteroidSpawner();
 
@@ -54,7 +54,7 @@ private:
 	void SpawnSingleAsteroid();
 	void DeleteDestroyedAsteroids();
 
-	DonerECS::CPrefabManager* m_prefabManager;
+	DonerComponents::CPrefabManager* m_prefabManager;
 
 	std::string m_prefabName;
 	float m_checkCadence;
@@ -62,7 +62,7 @@ private:
 	sf::Vector2f m_spawnArea;
 
 
-	std::vector<DonerECS::CHandle> m_activeAsteroids;
+	std::vector<DonerComponents::CHandle> m_activeAsteroids;
 	sf::Vector2f m_spawnAreaInPixels;
 	sf::FloatRect m_screenBoundaries;
 	float m_accTime;

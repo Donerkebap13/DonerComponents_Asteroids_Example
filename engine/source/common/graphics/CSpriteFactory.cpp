@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,18 +30,18 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 CSpriteFactory::CSpriteFactory(int nElements)
-	: DonerECS::CFactory<CSpriteInfo>(nElements)
+	: DonerComponents::CFactory<CSpriteInfo>(nElements)
 {
 }
 
 CSpriteInfo* CSpriteFactory::CreateSprite()
 {
-	return DonerECS::CFactory<CSpriteInfo>::GetNewElement();
+	return DonerComponents::CFactory<CSpriteInfo>::GetNewElement();
 }
 
 void CSpriteFactory::DestroySprite(CSpriteInfo* spriteInfo)
 {
-	DonerECS::CFactory<CSpriteInfo>::DestroyElement(&spriteInfo);
+	DonerComponents::CFactory<CSpriteInfo>::DestroyElement(&spriteInfo);
 }
 
 void CSpriteFactory::Render(sf::RenderWindow& window)

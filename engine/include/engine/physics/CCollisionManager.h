@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,20 +27,20 @@
 
 #pragma once
 
-#include <donerecs/common/CSingleton.h>
-#include <donerecs/entity/CEntity.h>
+#include <donercomponents/common/CSingleton.h>
+#include <donercomponents/gameObject/CGameObject.h>
 
 #include <SFML/Graphics/Rect.hpp>
 
 #include <unordered_map>
 
-class CCollisionManager : public DonerECS::CSingleton<CCollisionManager>
+class CCollisionManager : public DonerComponents::CSingleton<CCollisionManager>
 {
 public:
 	void Update();
 
-	void AddCollisionBox(DonerECS::CHandle handle, const sf::FloatRect& collisionBox);
+	void AddCollisionBox(DonerComponents::CHandle handle, const sf::FloatRect& collisionBox);
 
 private:
-	std::unordered_map<DonerECS::CHandle, sf::FloatRect> m_collisionBoxes;
+	std::unordered_map<DonerComponents::CHandle, sf::FloatRect> m_collisionBoxes;
 };

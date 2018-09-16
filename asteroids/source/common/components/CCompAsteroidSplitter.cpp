@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,14 +29,14 @@
 #include <engine/messages/CommonMessages.h>
 #include <engine/utils/CRandomGenerator.h>
 
-#include <donerecs/CDonerECSSystems.h>
-#include <donerecs/entity/CEntity.h>
-#include <donerecs/entity/CPrefabManager.h>
+#include <donercomponents/CDonerComponentsSystems.h>
+#include <donercomponents/gameObject/CGameObject.h>
+#include <donercomponents/gameObject/CPrefabManager.h>
 
-DECS_SERIALIZABLE_COMPONENT_IMPL(CCompAsteroidSplitter)
+DONER_SERIALIZABLE_COMPONENT_IMPL(CCompAsteroidSplitter)
 
 CCompAsteroidSplitter::CCompAsteroidSplitter()
-	: m_prefabManager(DonerECS::CDonerECSSystems::Get()->GetPrefabManager())
+	: m_prefabManager(DonerComponents::CDonerComponentsSystems::Get()->GetPrefabManager())
 	, m_maxAsteroids(4)
 {
 }
@@ -59,13 +59,13 @@ void CCompAsteroidSplitter::OnSplitAsteroid(const AsteroidsMessages::SSplitAster
 
 void CCompAsteroidSplitter::SpawnSingleAsteroid(float angle)
 {
-	DonerECS::CEntity* asteroidEntity = m_prefabManager->ClonePrefab(DonerECS::CStrID(m_prefabName.c_str()));
-	if (asteroidEntity)
+	DonerComponents::CGameObject* asteroidGameObject = m_prefabManager->ClonePrefab(DonerComponents::CStrID(m_prefabName.c_str()));
+	if (asteroidGameObject)
 	{
 		sf::Vector2f position;
 		m_owner.SendMessage(CommonMessages::SGetPosition(position));
 
-		asteroidEntity->SendMessage(CommonMessages::SSetPosition(position));
-		asteroidEntity->SendMessage(CommonMessages::SSetRotation(angle));
+		asteroidGameObject->SendMessage(CommonMessages::SSetPosition(position));
+		asteroidGameObject->SendMessage(CommonMessages::SSetRotation(angle));
 	}
 }

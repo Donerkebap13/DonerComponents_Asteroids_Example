@@ -10,6 +10,6 @@ IF NOT EXIST %project_folder% (
 
 cd %project_folder%
 
-cmake "..\asteroids" -DMAX_ENTITIES=4096 -DMAX_TAGS=64 -DBUILD_SHARED_LIBS=0 %extra_cmake_parameters%
+cmake "..\asteroids" -DMAX_GAME_OBJECTS=4096 -DMAX_TAGS=64 -DBUILD_SHARED_LIBS=0 %extra_cmake_parameters%
 
 cd %root%

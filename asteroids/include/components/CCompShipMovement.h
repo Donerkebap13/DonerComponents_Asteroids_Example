@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,11 +29,11 @@
 
 #include <engine/serialization/EngineSerialization.h>
 
-#include <donerecs/component/CComponent.h>
+#include <donercomponents/component/CComponent.h>
 
-class CCompShipMovement : public DonerECS::CComponent
+class CCompShipMovement : public DonerComponents::CComponent
 {
-	DECS_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompShipMovement)
+	DONER_DECLARE_COMPONENT_AS_SERIALIZABLE(CCompShipMovement)
 public:
 	CCompShipMovement();
 	

@@ -2,7 +2,7 @@
 //
 // MIT License
 //
-// DonerECS Asteroids Example
+// DonerComponents Asteroids Example
 // Copyright(c) 2018 Donerkebap13
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,7 +30,7 @@
 
 int main(int, char**)
 {
-	SApplicationWindowParameters params(800, 600, "DonerECS Asteroids");
+	SApplicationWindowParameters params(800, 600, "DonerComponents Asteroids");
 	CApplication application;
 	application.Init(params);
 	application.Update();
